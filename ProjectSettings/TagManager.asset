@@ -9,6 +9,7 @@ TagManager:
   - CoinDetector
   - Win
   - Lose
+  - Soul Detector
   layers:
   - Default
   - TransparentFX
@@ -18,8 +19,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - WhatIsGround
+  - WhatIsPlayer
   - 
   - 
   - 
