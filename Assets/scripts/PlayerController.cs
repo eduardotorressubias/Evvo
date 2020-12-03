@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
@@ -21,20 +22,33 @@ public class PlayerController : MonoBehaviour
 
     //stats
     public int curHealth;
-    public int maxHealth = 5;
+    public int maxHealth = 3;
+    public int dmg = 0;
+    private bool coldown = false;
+    public float cdTime = 0.1f;
+
 
     //interfaz
     private float timeCounter;
+    private float timeCounterCd;
     public float velocityHealth = 0.1f;
     public int curSprite = 0;
+    public GameObject[] go;
 
 
     //cameras
     public Camera mainCamera;
     private Vector3 camForward;
     private Vector3 camRight;
-
+    private Vector3 camPosition;
+    public GameObject camCaida;
+    public GameObject camPlayer;
     private MenuManager menuManager;
+
+    //Attack
+    
+    public GameObject attackbox;
+
 
     //godmode
     public bool god = false;
@@ -43,10 +57,16 @@ public class PlayerController : MonoBehaviour
     public float flow=5f;
 
 
+
     void Start()
     {
         menuManager = FindObjectOfType<MenuManager>();
         player = GetComponent<CharacterController>();
+        UnityEngine.Cursor.visible = false;
+        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+
+
+
 
         curHealth = maxHealth;
     }
@@ -68,6 +88,31 @@ public class PlayerController : MonoBehaviour
 
         player.transform.LookAt(player.transform.position + movePlayer);
 
+        camPosition = new Vector3 (camPlayer.transform.position.x, camPlayer.transform.position.y, camPlayer.transform.position.z);
+
+        //cursor visible
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            UnityEngine.Cursor.visible = true;
+            UnityEngine.Cursor.lockState = CursorLockMode.None;
+        }
+            
+
+        //attack
+        if (Input.GetKey(KeyCode.Mouse0))
+        {
+
+            attackbox.SetActive(true);
+
+
+        }
+        else
+        {
+            attackbox.SetActive(false);
+        }
+        
+     
+
         //godmode
         if (Input.GetKeyDown("f10"))
         {
@@ -83,7 +128,7 @@ public class PlayerController : MonoBehaviour
         }
         if (god)
         {
-            playerSpeed = 0.25f;
+            playerSpeed = 0.1f;
             movePlayer = movePlayer * playerSpeed;
             godMode();
 
@@ -107,10 +152,7 @@ public class PlayerController : MonoBehaviour
         {
             curHealth = maxHealth;
         }
-        if(curHealth <= 0)
-        {
-            die();
-        }
+        
 
         // Animación sprite vidas
 
@@ -118,13 +160,27 @@ public class PlayerController : MonoBehaviour
         if (timeCounter >= velocityHealth)
         {
             
-            if(curSprite >=6)
+            if (curSprite >=6)
             {
                 curSprite = -1;
             }
             curSprite++;
             timeCounter = 0;
         }
+
+        //Start coldown
+
+        if(coldown == true)
+        {
+            timeCounterCd += Time.deltaTime;
+            if(timeCounterCd >= cdTime)
+            {
+                timeCounterCd = 0;
+                coldown = false;
+            }
+        }
+
+      
 
 
 
@@ -174,13 +230,60 @@ public class PlayerController : MonoBehaviour
     
     public void die()
     {
+        UnityEngine.Cursor.visible = true;
+        UnityEngine.Cursor.lockState = CursorLockMode.None;
         menuManager.GameOver();
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Win")
+        {
+            UnityEngine.Cursor.visible = true;
+            UnityEngine.Cursor.lockState = CursorLockMode.None;
             menuManager.WinScene();
+        }
+        if(coldown == false && god ==false)
+            {
+                if (other.tag == "Projectil")
+                {
+                    damage(1);
+                    coldown = true;
+
+                }
+                
+
+        }
+        if (other.tag == "Lose")
+        {
+            UnityEngine.Cursor.visible = true;
+            UnityEngine.Cursor.lockState = CursorLockMode.None;
+            menuManager.GameOver();
+        }
+           
+        if (other.tag == "CamaraCaida")
+        {
+            camPlayer.SetActive(true);
+           
+            camCaida.SetActive(false);
+        }
+
+
+
     }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "CamaraCaida")
+        {
+            camPlayer.SetActive(false);
+
+            camCaida.transform.position = camPosition;
+            camCaida.SetActive(true);
+        }
+    }
+
+  
+
+
     public void godMode()
     {
 
@@ -207,6 +310,26 @@ public class PlayerController : MonoBehaviour
         movePlayer.y = fallVelocity;
 
         player.Move(movePlayer);
+    }
+
+    public void damage(int dmg)
+    {
+        curHealth = curHealth - dmg;
+        if (curHealth < 0)
+        {
+            die();
+        }
+        else if(curHealth == 0){
+            
+            go[curHealth].SetActive(false);
+            die();
+        }
+        else
+        {
+            UnityEngine.Debug.Log("vidas = "+ curHealth);
+            go[curHealth].SetActive(false);
+
+        }
     }
  
 }

@@ -6,9 +6,12 @@ using UnityEngine.SceneManagement;
 public class MenuManager : MonoBehaviour
 {
     // Start is called before the first frame update
+
+    private LevelChanger levelChanger;
+
     void Start()
     {
-        
+        levelChanger = FindObjectOfType<LevelChanger>();
     }
 
     // Update is called once per frame
@@ -26,6 +29,7 @@ public class MenuManager : MonoBehaviour
 
     public void GameOver()
     {
+       
         StartCoroutine(WaitLose());
         //SceneManager.LoadScene("LoseScene");
     }
@@ -64,11 +68,16 @@ public class MenuManager : MonoBehaviour
 
         //audioPlayer.PlaySound(3, 1, 1);
         yield return new WaitForSeconds(1f);
+        levelChanger.OnFadeComplete();
+        yield return new WaitForSeconds(1f);
         SceneManager.LoadScene("WinScene");
     }
     private IEnumerator WaitLose()
     {
         //audioPlayer.PlaySound(3, 1, 1);
+
+        yield return new WaitForSeconds(1f);
+        levelChanger.OnFadeComplete();
         yield return new WaitForSeconds(1f);
         SceneManager.LoadScene("LoseScene");
 

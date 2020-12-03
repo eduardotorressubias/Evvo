@@ -24,6 +24,8 @@ public class EnemyController : MonoBehaviour
     public float timeBetweenAttacks;
     bool alreadyAttacked;
     public GameObject projectile;
+    private Vector3 PosProjectile;
+    public float yProject;
 
     //States
     public float sightRange, attackRange;
@@ -68,7 +70,9 @@ public class EnemyController : MonoBehaviour
         else if (walkPointSet)
         {
             agent.SetDestination(walkPoint);
-        
+            
+            transform.rotation = Quaternion.LookRotation(agent.velocity.normalized);
+
 
             Vector3 distanceToWalkPoint = transform.position - walkPoint;
 
@@ -103,13 +107,14 @@ public class EnemyController : MonoBehaviour
     {
         //Make sure enemy doesn't move
         agent.SetDestination(transform.position);
-        playerLook = new Vector3(player.transform.position.x, 1f, player.transform.position.z);
+        playerLook = new Vector3(player.transform.position.x, 0f, player.transform.position.z);
         transform.LookAt(playerLook);
 
         if (!alreadyAttacked)
         {
             //Attack code here
-            Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
+            PosProjectile = new Vector3(transform.position.x, transform.position.y + yProject, transform.position.z);
+            Rigidbody rb = Instantiate(projectile, PosProjectile, Quaternion.identity).GetComponent<Rigidbody>();
 
             rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
             rb.AddForce(transform.up * 8f, ForceMode.Impulse);
@@ -141,6 +146,14 @@ public class EnemyController : MonoBehaviour
         Destroy(gameObject);
     }
 
+    public void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Attack")
+        {
+            Debug.Log("Me ha dado");
+            TakeDamage(1);
+        }
+    }
     private void OnDrawGiszmosSelected()
     {
         Gizmos.color = Color.red;

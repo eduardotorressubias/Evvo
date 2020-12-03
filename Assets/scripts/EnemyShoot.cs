@@ -8,7 +8,8 @@ public class EnemyShoot : MonoBehaviour
 
     public float speed = 2f;
     public float lifeDuration = 2f;
-    public EnemyController enemy;
+    private EnemyController enemy;
+    private PlayerController player;
 
     private float lifeTimer;
 
@@ -16,6 +17,7 @@ public class EnemyShoot : MonoBehaviour
     {
         lifeTimer = lifeDuration;
         enemy = FindObjectOfType<EnemyController>();
+        
     }
 
     // Update is called once per frame
@@ -29,5 +31,15 @@ public class EnemyShoot : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Player" || other.tag == "Scene")
+        {
+           
+            Destroy(gameObject);
+        }
+
+        
     }
 }
