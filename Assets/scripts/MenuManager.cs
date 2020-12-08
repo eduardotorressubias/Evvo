@@ -21,6 +21,11 @@ public class MenuManager : MonoBehaviour
 
     }
 
+    public void Options()
+    {
+        SceneManager.LoadScene("Options");
+    }
+
     public void ExitGame()
     {
         StartCoroutine(WaitExit());
@@ -34,11 +39,12 @@ public class MenuManager : MonoBehaviour
         //SceneManager.LoadScene("LoseScene");
     }
 
-    /*public void MainMenu()
+    public void MainMenu()
     {
-        StartCoroutine(WaitMenu());
+        SceneManager.LoadScene("MainMenu");
+        //StartCoroutine(WaitMenu());
     }
-    */
+    
 
     public void WinScene()
     {
@@ -57,12 +63,12 @@ public class MenuManager : MonoBehaviour
         yield return new WaitForSeconds(0.8f);
         Application.Quit();
     }
-    /*private IEnumerator WaitMenu()
+    private IEnumerator WaitMenu()
     {
         //audioPlayer.PlaySound(2, 1, 1);
-        yield return new WaitForSeconds(0.5f);
-        SceneManager.LoadScene("Menu");
-    }*/
+        yield return new WaitForSeconds(0.3f);
+        SceneManager.LoadScene("MainMenu");
+    }
     private IEnumerator WaitWin()
     {
 
@@ -76,7 +82,7 @@ public class MenuManager : MonoBehaviour
     {
         //audioPlayer.PlaySound(3, 1, 1);
 
-        yield return new WaitForSeconds(1f);
+        //yield return new WaitForSeconds(1f);
         levelChanger.OnFadeComplete();
         yield return new WaitForSeconds(1f);
         SceneManager.LoadScene("LoseScene");

@@ -13,7 +13,8 @@ public class PlayerController : MonoBehaviour
     private Vector3 playerInput;
     public CharacterController player;
     
-    public float playerSpeed;
+    public float playerSpeed=10f;
+    public float godSpeed = 0.25f;
     public Vector3 movePlayer = Vector3.zero;
     public float gravity = 80f;
     public float fallVelocity=0f;
@@ -34,6 +35,8 @@ public class PlayerController : MonoBehaviour
     public float velocityHealth = 0.1f;
     public int curSprite = 0;
     public GameObject[] go;
+    private OptionsMenu optionsMenu;
+
 
 
     //cameras
@@ -44,6 +47,7 @@ public class PlayerController : MonoBehaviour
     public GameObject camCaida;
     public GameObject camPlayer;
     private MenuManager menuManager;
+
 
     //Attack
     
@@ -61,7 +65,9 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         menuManager = FindObjectOfType<MenuManager>();
+    
         player = GetComponent<CharacterController>();
+        optionsMenu = FindObjectOfType<OptionsMenu>();
         UnityEngine.Cursor.visible = false;
         UnityEngine.Cursor.lockState = CursorLockMode.Locked;
 
@@ -99,7 +105,7 @@ public class PlayerController : MonoBehaviour
             
 
         //attack
-        if (Input.GetKey(KeyCode.Mouse0))
+        if (Input.GetKey(KeyCode.Mouse0) && optionsMenu.menuIsOpen == false)
         {
 
             attackbox.SetActive(true);
@@ -128,14 +134,13 @@ public class PlayerController : MonoBehaviour
         }
         if (god)
         {
-            playerSpeed = 0.1f;
-            movePlayer = movePlayer * playerSpeed;
+            
+            movePlayer = movePlayer * godSpeed;
             godMode();
 
         }
         else
         {
-            playerSpeed = 10f;
             movePlayer = movePlayer * playerSpeed;
             setGravity();
             playerSkills();
@@ -236,7 +241,7 @@ public class PlayerController : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Win")
+        if (other.tag == "Win" && god == false)
         {
             UnityEngine.Cursor.visible = true;
             UnityEngine.Cursor.lockState = CursorLockMode.None;
@@ -253,14 +258,15 @@ public class PlayerController : MonoBehaviour
                 
 
         }
-        if (other.tag == "Lose")
+        if (other.tag == "Lose" && god == false)
         {
+
             UnityEngine.Cursor.visible = true;
             UnityEngine.Cursor.lockState = CursorLockMode.None;
             menuManager.GameOver();
         }
            
-        if (other.tag == "CamaraCaida")
+        if (other.tag == "CamaraCaida" && god == false)
         {
             camPlayer.SetActive(true);
            
@@ -272,7 +278,7 @@ public class PlayerController : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "CamaraCaida")
+        if (other.tag == "CamaraCaida" && god == false)
         {
             camPlayer.SetActive(false);
 

@@ -15,6 +15,7 @@ TagManager:
   - CamaraCaida
   - Enemy
   - Attack
+  - Platform
   layers:
   - Default
   - TransparentFX

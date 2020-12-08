@@ -19,6 +19,7 @@ public class EnemyController : MonoBehaviour
     public Vector3 walkPoint;
     bool walkPointSet;
     public float walkPointRange;
+    public float AlturaEnemigo; 
 
     //Attacking
     public float timeBetweenAttacks;
@@ -107,14 +108,14 @@ public class EnemyController : MonoBehaviour
     {
         //Make sure enemy doesn't move
         agent.SetDestination(transform.position);
-        playerLook = new Vector3(player.transform.position.x, 0f, player.transform.position.z);
+        playerLook = new Vector3(player.transform.position.x, AlturaEnemigo, player.transform.position.z);
         transform.LookAt(playerLook);
 
         if (!alreadyAttacked)
         {
             //Attack code here
             PosProjectile = new Vector3(transform.position.x, transform.position.y + yProject, transform.position.z);
-            Rigidbody rb = Instantiate(projectile, PosProjectile, Quaternion.identity).GetComponent<Rigidbody>();
+            Rigidbody rb = Instantiate(projectile, PosProjectile+(transform.forward*1.2f), Quaternion.identity).GetComponent<Rigidbody>();
 
             rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
             rb.AddForce(transform.up * 8f, ForceMode.Impulse);
