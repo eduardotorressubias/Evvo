@@ -217,8 +217,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e96ee892acba13d49b4079d78621df95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
-  currentAngle: {x: 0, y: 0, z: 0, w: 0}
+  speed: 10
+  highRotation: 11.2
 --- !u!65 &3281632085761783161
 BoxCollider:
   m_ObjectHideFlags: 0
