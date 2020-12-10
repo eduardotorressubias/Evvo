@@ -26,12 +26,12 @@ public class PlayerController : MonoBehaviour
     public int maxHealth = 3;
     public int dmg = 0;
     private bool coldown = false;
-    public float cdTime = 0.1f;
+    public float cdTime = 0.6f;
 
 
     //interfaz
     private float timeCounter;
-    private float timeCounterCd;
+    private float timeCounterCd = 0;
     public float velocityHealth = 0.1f;
     public int curSprite = 0;
     public GameObject[] go;
@@ -52,6 +52,12 @@ public class PlayerController : MonoBehaviour
     //Attack
     
     public GameObject attackbox;
+    public AudioSource attack;
+    public AudioSource salto;
+    private bool attacking = false;
+
+    public GameObject sonidoSalto;
+    public GameObject sonidoAttack;
 
 
     //godmode
@@ -59,7 +65,7 @@ public class PlayerController : MonoBehaviour
     public bool goUp;
     public bool goDown;
     public float flow=5f;
-
+    private object audioPlayer;
 
 
     void Start()
@@ -105,16 +111,30 @@ public class PlayerController : MonoBehaviour
             
 
         //attack
-        if (Input.GetKey(KeyCode.Mouse0) && optionsMenu.menuIsOpen == false)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && optionsMenu.menuIsOpen == false && attacking == false)
         {
+            
 
-            attackbox.SetActive(true);
+            
+            Instantiate(sonidoAttack);
+            attacking = true;
 
 
         }
-        else
+
+        if (attacking == true)
         {
-            attackbox.SetActive(false);
+            timeCounterCd += Time.deltaTime;
+            if (timeCounterCd >= cdTime)
+            {
+                timeCounterCd = 0;
+                attacking = false;
+                attackbox.SetActive(false);
+            }
+            else
+            {
+                attackbox.SetActive(true);
+            }
         }
         
      
@@ -209,6 +229,7 @@ public class PlayerController : MonoBehaviour
     {
         if(player.isGrounded && Input.GetButtonDown("Jump"))
         {
+            Instantiate(sonidoSalto);
             fallVelocity = jumpForce;
             movePlayer.y = fallVelocity;
           

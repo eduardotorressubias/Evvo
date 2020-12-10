@@ -30,9 +30,10 @@ public class EnemyController : MonoBehaviour
 
     //States
     public float sightRange, attackRange;
-    public bool playerInSightRange, playerInAttackRange;
+    public bool playerInSightRange, playerInAttackRange, Soundon;
     Vector3 playerLook;
-
+    private float timeCounter;
+    public GameObject EnemySound;
 
     private void Awake()
     {
@@ -46,19 +47,27 @@ public class EnemyController : MonoBehaviour
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
-        if(!playerInSightRange && !playerInAttackRange)
+        if (!playerInSightRange && !playerInAttackRange)
         {
             Patroling();
+            Soundon = false;
+            timeCounter = 0;
         }
-        if(playerInSightRange && !playerInAttackRange)
+        if (playerInSightRange && !playerInAttackRange)
         {
             ChasePlayer();
+            Soundon = true;
+            timeCounter++;
         }
-        if(playerInSightRange && playerInAttackRange)
+        if (playerInSightRange && playerInAttackRange)
         {
             AttackPlayer();
         }
 
+        if (Soundon && timeCounter == 0)
+        {
+            Instantiate(EnemySound);
+        }
 
     }
 
