@@ -19,22 +19,32 @@ public class EnemyController : MonoBehaviour
     public Vector3 walkPoint;
     bool walkPointSet;
     public float walkPointRange;
+    public float AlturaEnemigo;
+    public bool boss;
 
     //Attacking
     public float timeBetweenAttacks;
     bool alreadyAttacked;
     public GameObject projectile;
+    private Vector3 PosProjectile;
+    public float yProject;
+    
 
     //States
     public float sightRange, attackRange;
-    public bool playerInSightRange, playerInAttackRange;
+    public bool playerInSightRange, playerInAttackRange, Soundon;
     Vector3 playerLook;
-
+    private float timeCounter=0;
+    public GameObject enemySound;
+    public GameObject bossSound;
+    public GameObject portal;
 
     private void Awake()
     {
+       
         player = FindObjectOfType<PlayerController>();
         agent = GetComponent<NavMeshAgent>();
+        timeCounter = 0;
     }
 
     private void Update()
@@ -43,19 +53,31 @@ public class EnemyController : MonoBehaviour
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
-        if(!playerInSightRange && !playerInAttackRange)
+        if (!playerInSightRange && !playerInAttackRange)
         {
             Patroling();
+            Soundon = false;
+            timeCounter = 0;
         }
-        if(playerInSightRange && !playerInAttackRange)
+        if (playerInSightRange && !playerInAttackRange)
         {
             ChasePlayer();
+            Soundon = true;
+            timeCounter++;
         }
-        if(playerInSightRange && playerInAttackRange)
+        if (playerInSightRange && playerInAttackRange)
         {
             AttackPlayer();
         }
 
+        if (Soundon && timeCounter == 1 && boss == false)
+        {
+            Instantiate(enemySound);
+        }
+        if (Soundon && timeCounter == 1 && boss == true)
+        {
+            Instantiate(bossSound);
+        }
 
     }
 
@@ -68,7 +90,9 @@ public class EnemyController : MonoBehaviour
         else if (walkPointSet)
         {
             agent.SetDestination(walkPoint);
-        
+            
+            transform.rotation = Quaternion.LookRotation(agent.velocity.normalized);
+
 
             Vector3 distanceToWalkPoint = transform.position - walkPoint;
 
@@ -103,13 +127,14 @@ public class EnemyController : MonoBehaviour
     {
         //Make sure enemy doesn't move
         agent.SetDestination(transform.position);
-        playerLook = new Vector3(player.transform.position.x, 1f, player.transform.position.z);
+        playerLook = new Vector3(player.transform.position.x, AlturaEnemigo, player.transform.position.z);
         transform.LookAt(playerLook);
 
         if (!alreadyAttacked)
         {
             //Attack code here
-            Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
+            PosProjectile = new Vector3(transform.position.x, transform.position.y + yProject, transform.position.z);
+            Rigidbody rb = Instantiate(projectile, PosProjectile+(transform.forward*1.2f), Quaternion.identity).GetComponent<Rigidbody>();
 
             rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
             rb.AddForce(transform.up * 8f, ForceMode.Impulse);
@@ -138,9 +163,26 @@ public class EnemyController : MonoBehaviour
 
     private void DestroyEnemy()
     {
+        if (boss)
+        {
+            portal.SetActive(true);
+        }
+        else
+        {
+
+        }
         Destroy(gameObject);
+
     }
 
+    public void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Attack")
+        {
+            Debug.Log("Me ha dado");
+            TakeDamage(1);
+        }
+    }
     private void OnDrawGiszmosSelected()
     {
         Gizmos.color = Color.red;

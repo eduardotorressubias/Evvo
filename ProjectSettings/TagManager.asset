@@ -10,6 +10,12 @@ TagManager:
   - Win
   - Lose
   - Soul Detector
+  - Projectil
+  - Scene
+  - CamaraCaida
+  - Enemy
+  - Attack
+  - Platform
   layers:
   - Default
   - TransparentFX

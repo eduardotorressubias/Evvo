@@ -1,33 +1,61 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 
 public class EnemyShoot : MonoBehaviour
 {
-    // Start is called before the first frame update
 
-    public float speed = 2f;
-    public float lifeDuration = 2f;
-    public EnemyController enemy;
+    public float speed;
+    public float highRotation;
 
-    private float lifeTimer;
+    private Vector3 target;
+    private Vector3 rotation;
+
+    private PlayerController evvo;
+    private Rigidbody rb;
+
 
     void Start()
     {
-        lifeTimer = lifeDuration;
-        enemy = FindObjectOfType<EnemyController>();
+        evvo = FindObjectOfType<PlayerController>();
+        rb = GetComponent<Rigidbody>();
+
+        target = new Vector3(evvo.player.transform.position.x, evvo.player.transform.position.y + 0.7f, evvo.player.transform.position.z);
+        rotation = new Vector3(evvo.player.transform.position.x, highRotation, evvo.player.transform.position.z);
+
+        transform.LookAt(rotation);
+
     }
 
-    // Update is called once per frame
     void Update()
     {
-        //make the bullet move
-        transform.position += enemy.agent.transform.forward * speed * Time.deltaTime;
-        //destruir el bullet
-        lifeTimer -= Time.deltaTime;
-        if(lifeTimer <= 0f)
+
+        transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
+
+        Vector3 lookatposition = transform.position + rb.velocity;
+
+        transform.LookAt(lookatposition);
+
+
+        if (transform.position.x == target.x && transform.position.y == target.y)
         {
-            Destroy(gameObject);
+            DestroyProjectile();
         }
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Player" || other.tag == "Scene" || other.tag == "lose" || other.tag == "win")
+        {
+            
+            DestroyProjectile();
+        }
+    }
+
+    void DestroyProjectile()
+    {
+        Destroy(gameObject);
+    }
+
+    
 }
