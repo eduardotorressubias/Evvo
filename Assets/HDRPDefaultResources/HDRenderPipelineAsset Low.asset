@@ -190,7 +190,7 @@ MonoBehaviour:
   m_RenderPipelineSettings:
     supportShadowMask: 1
     supportSSR: 0
-    supportSSAO: 1
+    supportSSAO: 0
     supportSubsurfaceScattering: 1
     increaseSssSampleCount: 0
     supportVolumetrics: 0
@@ -205,33 +205,33 @@ MonoBehaviour:
     lightLayerName6: Light Layer 6
     lightLayerName7: Light Layer 7
     supportDistortion: 1
-    supportTransparentBackface: 1
-    supportTransparentDepthPrepass: 1
-    supportTransparentDepthPostpass: 1
+    supportTransparentBackface: 0
+    supportTransparentDepthPrepass: 0
+    supportTransparentDepthPostpass: 0
     colorBufferFormat: 74
-    supportCustomPass: 1
+    supportCustomPass: 0
     customBufferFormat: 12
     supportedLitShaderMode: 2
-    supportDecals: 1
+    supportDecals: 0
     msaaSampleCount: 1
-    supportMotionVectors: 1
-    supportRuntimeDebugDisplay: 1
-    supportDitheringCrossFade: 1
+    supportMotionVectors: 0
+    supportRuntimeDebugDisplay: 0
+    supportDitheringCrossFade: 0
     supportTerrainHole: 0
     supportRayTracing: 0
     lightLoopSettings:
-      cookieAtlasSize: 1024
+      cookieAtlasSize: 64
       cookieFormat: 74
-      pointCookieSize: 128
+      pointCookieSize: 64
       cubeCookieTexArraySize: 16
       cookieAtlasLastValidMip: 0
       cookieTexArraySize: 1
-      planarReflectionAtlasSize: 512
+      planarReflectionAtlasSize: 64
       reflectionProbeCacheSize: 64
       reflectionCubemapSize: 128
       reflectionCacheCompressed: 0
-      planarReflectionCacheCompressed: 0
-      skyReflectionSize: 128
+      planarReflectionCacheCompressed: 1
+      skyReflectionSize: 256
       skyLightingOverrideLayerMask:
         serializedVersion: 2
         m_Bits: 0
@@ -255,15 +255,15 @@ MonoBehaviour:
         shadowAtlasDepthBits: 32
         useDynamicViewportRescale: 1
       shadowResolutionDirectional:
-        m_Values: 00010000000200000004000000080000
+        m_Values: 00010000000100000001000000010000
         m_SchemaId:
           m_Id: With4Levels
       shadowResolutionPunctual:
-        m_Values: 00010000000200000004000000080000
+        m_Values: 00010000000100000001000000080000
         m_SchemaId:
           m_Id: With4Levels
       shadowResolutionArea:
-        m_Values: 00010000000200000004000000080000
+        m_Values: 00010000000100000001000000080000
         m_SchemaId:
           m_Id: With4Levels
       maxDirectionalShadowMapResolution: 2048
@@ -290,32 +290,32 @@ MonoBehaviour:
       forceResolution: 0
       forcedPercentage: 100
     lowresTransparentSettings:
-      enabled: 1
+      enabled: 0
       checkerboardDepthBuffer: 1
       upsampleType: 1
     xrSettings:
       singlePass: 1
       occlusionMesh: 1
     postProcessQualitySettings:
-      NearBlurSampleCount: 030000000500000008000000
+      NearBlurSampleCount: 030000000300000003000000
       NearBlurMaxRadius:
       - 2
-      - 4
-      - 7
-      FarBlurSampleCount: 04000000070000000e000000
+      - 2
+      - 2
+      FarBlurSampleCount: 040000000400000004000000
       FarBlurMaxRadius:
       - 5
-      - 8
-      - 13
-      DoFResolution: 040000000200000001000000
-      DoFHighQualityFiltering: 000101
-      MotionBlurSampleCount: 04000000080000000c000000
-      BloomRes: 040000000200000002000000
-      BloomHighQualityFiltering: 000101
-      ChromaticAberrationMaxSamples: 03000000060000000c000000
+      - 5
+      - 5
+      DoFResolution: 040000000400000004000000
+      DoFHighQualityFiltering: 000000
+      MotionBlurSampleCount: 040000000400000004000000
+      BloomRes: 040000000400000004000000
+      BloomHighQualityFiltering: 000000
+      ChromaticAberrationMaxSamples: 030000000300000003000000
     lightSettings:
       useContactShadow:
-        m_Values: 000000
+        m_Values: 010000
         m_SchemaId:
           m_Id: 
     maximumLODLevel:
@@ -330,13 +330,13 @@ MonoBehaviour:
       m_SchemaId:
         m_Id: With3Levels
     lightingQualitySettings:
-      AOStepCount: 040000000600000010000000
+      AOStepCount: 040000000400000004000000
       AOFullRes: 000001
-      AOMaximumRadiusPixels: 200000002800000050000000
-      AOBilateralUpsample: 000101
-      AODirectionCount: 010000000200000004000000
-      ContactShadowSampleCount: 060000000a00000010000000
-      SSRMaxRaySteps: 100000002000000040000000
+      AOMaximumRadiusPixels: 200000002000000020000000
+      AOBilateralUpsample: 000000
+      AODirectionCount: 010000000100000001000000
+      ContactShadowSampleCount: 060000000600000006000000
+      SSRMaxRaySteps: 100000001000000010000000
   allowShaderVariantStripping: 1
   enableSRPBatcher: 1
   shaderVariantLogLevel: 0
@@ -344,8 +344,8 @@ MonoBehaviour:
   m_DefaultMaterialQualityLevel: 1
   diffusionProfileSettings: {fileID: 0}
   diffusionProfileSettingsList:
-  - {fileID: 11400000, guid: ea64ccb4becfa6946910bada379e620a, type: 2}
-  - {fileID: 11400000, guid: d14d14b0d4bd0494b9ec36c9f9189478, type: 2}
+  - {fileID: 11400000, guid: 0098eb83b7655b645ad19d5f8dabfa60, type: 2}
+  - {fileID: 11400000, guid: 96f71943c07f7154aa81e18ffb3d40f7, type: 2}
   beforeTransparentCustomPostProcesses: []
   beforePostProcessCustomPostProcesses: []
   afterPostProcessCustomPostProcesses: []

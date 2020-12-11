@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
     public int curSprite = 0;
     public GameObject[] go;
     private OptionsMenu optionsMenu;
+    private PlayerAnimation playerAnimation;
 
 
 
@@ -52,10 +53,7 @@ public class PlayerController : MonoBehaviour
     //Attack
     
     public GameObject attackbox;
-    public AudioSource attack;
-    public AudioSource salto;
     private bool attacking = false;
-
     public GameObject sonidoSalto;
     public GameObject sonidoAttack;
 
@@ -65,13 +63,12 @@ public class PlayerController : MonoBehaviour
     public bool goUp;
     public bool goDown;
     public float flow=5f;
-    private object audioPlayer;
 
 
     void Start()
     {
+        playerAnimation = FindObjectOfType<PlayerAnimation>();
         menuManager = FindObjectOfType<MenuManager>();
-    
         player = GetComponent<CharacterController>();
         optionsMenu = FindObjectOfType<OptionsMenu>();
         UnityEngine.Cursor.visible = false;
@@ -272,6 +269,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (other.tag == "Projectil")
                 {
+                    playerAnimation.OnDmgComplete();
                     damage(1);
                     coldown = true;
 

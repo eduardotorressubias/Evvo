@@ -19,7 +19,8 @@ public class EnemyController : MonoBehaviour
     public Vector3 walkPoint;
     bool walkPointSet;
     public float walkPointRange;
-    public float AlturaEnemigo; 
+    public float AlturaEnemigo;
+    public bool boss;
 
     //Attacking
     public float timeBetweenAttacks;
@@ -27,18 +28,23 @@ public class EnemyController : MonoBehaviour
     public GameObject projectile;
     private Vector3 PosProjectile;
     public float yProject;
+    
 
     //States
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange, Soundon;
     Vector3 playerLook;
-    private float timeCounter;
-    public GameObject EnemySound;
+    private float timeCounter=0;
+    public GameObject enemySound;
+    public GameObject bossSound;
+    public GameObject portal;
 
     private void Awake()
     {
+       
         player = FindObjectOfType<PlayerController>();
         agent = GetComponent<NavMeshAgent>();
+        timeCounter = 0;
     }
 
     private void Update()
@@ -64,9 +70,13 @@ public class EnemyController : MonoBehaviour
             AttackPlayer();
         }
 
-        if (Soundon && timeCounter == 0)
+        if (Soundon && timeCounter == 1 && boss == false)
         {
-            Instantiate(EnemySound);
+            Instantiate(enemySound);
+        }
+        if (Soundon && timeCounter == 1 && boss == true)
+        {
+            Instantiate(bossSound);
         }
 
     }
@@ -153,7 +163,16 @@ public class EnemyController : MonoBehaviour
 
     private void DestroyEnemy()
     {
+        if (boss)
+        {
+            portal.SetActive(true);
+        }
+        else
+        {
+
+        }
         Destroy(gameObject);
+
     }
 
     public void OnTriggerEnter(Collider other)

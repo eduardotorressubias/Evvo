@@ -11,6 +11,7 @@ public class LevelChanger : MonoBehaviour
     {
         animator.SetTrigger("FadeOut");
     }
-    // Update is called once per frame
+
+  
  
 }

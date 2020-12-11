@@ -73,7 +73,7 @@ public class MenuManager : MonoBehaviour
     {
 
         //audioPlayer.PlaySound(3, 1, 1);
-        yield return new WaitForSeconds(1f);
+        //yield return new WaitForSeconds(1f);
         levelChanger.OnFadeComplete();
         yield return new WaitForSeconds(1f);
         SceneManager.LoadScene("WinScene");
