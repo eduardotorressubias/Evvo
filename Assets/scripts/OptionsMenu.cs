@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using UnityEngine;
-using UnityEngine.UIElements;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 using UnityEngine.Rendering;
@@ -12,13 +11,14 @@ using TMPro;
 
 public class OptionsMenu : MonoBehaviour
 {
-    //static string brightness_PPrefsTag = "Brightness";
-    //static string gamma_PPrefsTag = "Gamma";
+    static string brightness_PPrefsTag = "Brightness";
+    static string gamma_PPrefsTag = "Gamma";
     static string resolution_PPrefsTag = "Resolution";
     static string fullscreen_PPrefsTag = "FullScreen";
     static string quality_PPrefsTag = "Quality";
 
     [SerializeField] Canvas canvas;
+    [SerializeField] Volume volume;
 
     [SerializeField] TMP_Dropdown resolution;
     [SerializeField] TMP_Dropdown fullscreen;
@@ -26,21 +26,24 @@ public class OptionsMenu : MonoBehaviour
 
     public bool menuIsOpen = false;
     private MenuManager menuManager;
-    //[SerializeField] Slider sliBrightness;
-    //[SerializeField] Slider sliGamme;
+    [SerializeField] Slider sliBrightness;
+    [SerializeField] Slider sliGamme;
 
 
-    //ColorAdjustments colorAdjustments;
-    //LiftGammaGain liftGammaGain;
+    ColorAdjustments colorAdjustments;
+    LiftGammaGain liftGammaGain;
 
     // Start is called before the first frame update
 
     void Start()
     {
+        volume.profile.TryGet<ColorAdjustments>(out colorAdjustments);
+        volume.profile.TryGet<LiftGammaGain>(out liftGammaGain);
 
         menuManager = FindObjectOfType<MenuManager>();
-        //sliBrightness.value = PlayerPrefs.GetFloat(brightness_PPrefsTag, 0.75f);
-        //sliGamme.value = PlayerPrefs.GetFloat(gamma_PPrefsTag, 0.1f);
+
+        sliBrightness.value = PlayerPrefs.GetFloat(brightness_PPrefsTag, 0.75f);
+        sliGamme.value = PlayerPrefs.GetFloat(gamma_PPrefsTag, 0.1f);
 
 
         {
@@ -110,17 +113,17 @@ public class OptionsMenu : MonoBehaviour
         }
     }
 
-    //public void OnSliBrightnessValue(float newValue)
-    //{
-    //    PlayerPrefs.SetFloat(brightness_PPrefsTag, newValue);
-    //    colorAdjustments.postExposure.value = NormalizedToRange(newValue, -5f, 5f);
-    //}
+    public void OnSliBrightnessValue(float newValue)
+    {
+        PlayerPrefs.SetFloat(brightness_PPrefsTag, newValue);
+        colorAdjustments.postExposure.value = NormalizedToRange(newValue, -5f, 5f);
+    }
 
-    //public void OnSliGammaValue(float newValue)
-    //{
-    //    PlayerPrefs.SetFloat(gamma_PPrefsTag, newValue);
-    //    liftGammaGain.gamma.value = Vector4.one * NormalizedToRange(newValue, -0.5f, 2f);
-    //}
+    public void OnSliGammaValue(float newValue)
+    {
+        PlayerPrefs.SetFloat(gamma_PPrefsTag, newValue);
+        liftGammaGain.gamma.value = Vector4.one * NormalizedToRange(newValue, -0.5f, 2f);
+    }
 
 
 
@@ -166,13 +169,13 @@ public class OptionsMenu : MonoBehaviour
 
 
 
-    //public float NormalizedToRange(float value, float min, float max)
-    //{
-    //    float range = max - min;
-    //    float rangedValue = min + (value * range);
+    public float NormalizedToRange(float value, float min, float max)
+    {
+        float range = max - min;
+        float rangedValue = min + (value * range);
 
-    //    return rangedValue;
-    //}
+        return rangedValue;
+    }
 
     public void OnResolutionChange(int option)
     {
