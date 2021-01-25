@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 playerInput;
     public CharacterController player;
     
+    
     public float playerSpeed=10f;
     public float godSpeed = 0.25f;
     public Vector3 movePlayer = Vector3.zero;
@@ -64,6 +65,16 @@ public class PlayerController : MonoBehaviour
     public bool goDown;
     public float flow=5f;
 
+    //particles
+
+    public ParticleSystem dust;
+
+    //Tutorial
+    public GameObject tutorial1;
+    public GameObject tutorial2;
+    public GameObject tutorial3;
+    public float oldtimescale =0f;
+
 
     void Start()
     {
@@ -73,49 +84,61 @@ public class PlayerController : MonoBehaviour
         optionsMenu = FindObjectOfType<OptionsMenu>();
         UnityEngine.Cursor.visible = false;
         UnityEngine.Cursor.lockState = CursorLockMode.Locked;
-
-
-
-
         curHealth = maxHealth;
     }
 
-    // Update is called once per frame
     void Update()
     {
         // Movimiento
-        horizontalMove = Input.GetAxis("Horizontal");
-        verticalMove = Input.GetAxis("Vertical");
 
-        playerInput = new Vector3(horizontalMove, 0, verticalMove);
-        playerInput = Vector3.ClampMagnitude(playerInput, 1);
+        movement();
 
         //movimiento + camara
+        
         camDirection();
 
-        movePlayer = playerInput.x * camRight + playerInput.z * camForward;
-
-        player.transform.LookAt(player.transform.position + movePlayer);
-
-        camPosition = new Vector3 (camPlayer.transform.position.x, camPlayer.transform.position.y, camPlayer.transform.position.z);
-
         //cursor visible
+
+        visibleCursor();
+
+        //attack
+
+        atack();
+
+        //godmode
+
+        checkGod();
+
+        //health
+
+        spriteHealth();
+
+        //Start coldown
+
+        playerColdown();
+
+        
+
+    }
+
+    //cursor visible y que no se salga de la pantalla 
+    public void visibleCursor()
+    {
         if (Input.GetKey(KeyCode.Escape))
         {
             UnityEngine.Cursor.visible = true;
             UnityEngine.Cursor.lockState = CursorLockMode.None;
         }
-            
+    }
 
-        //attack
+    //Ataque y coldown de ataque
+    public void atack()
+    {
         if (Input.GetKeyDown(KeyCode.Mouse0) && optionsMenu.menuIsOpen == false && attacking == false)
         {
-            
 
-            
             Instantiate(sonidoAttack);
             attacking = true;
-
 
         }
 
@@ -133,80 +156,20 @@ public class PlayerController : MonoBehaviour
                 attackbox.SetActive(true);
             }
         }
-        
-     
-
-        //godmode
-        if (Input.GetKeyDown("f10"))
-        {
-
-            if (!god)
-            {
-                god = true;
-            }
-            else
-            {
-                god = false;
-            }
-        }
-        if (god)
-        {
-            
-            movePlayer = movePlayer * godSpeed;
-            godMode();
-
-        }
-        else
-        {
-            movePlayer = movePlayer * playerSpeed;
-            setGravity();
-            playerSkills();
-
-
-        }
-
-        player.Move(movePlayer * Time.deltaTime);
-
-
-        //health
-
-        if (curHealth > maxHealth)
-        {
-            curHealth = maxHealth;
-        }
-        
-
-        // Animación sprite vidas
-
-        timeCounter += Time.deltaTime;
-        if (timeCounter >= velocityHealth)
-        {
-            
-            if (curSprite >=6)
-            {
-                curSprite = -1;
-            }
-            curSprite++;
-            timeCounter = 0;
-        }
-
-        //Start coldown
-
-        if(coldown == true)
-        {
-            timeCounterCd += Time.deltaTime;
-            if(timeCounterCd >= cdTime)
-            {
-                timeCounterCd = 0;
-                coldown = false;
-            }
-        }
-
-      
-
-
-
     }
+
+    //Movimiento wasd
+    public void movement()
+    {
+        
+        horizontalMove = Input.GetAxis("Horizontal");
+        verticalMove = Input.GetAxis("Vertical");
+
+        playerInput = new Vector3(horizontalMove, 0, verticalMove);
+        playerInput = Vector3.ClampMagnitude(playerInput, 1);
+        
+    }
+
     //Funcion para la direccion a la que mira la camara
     public void camDirection()
     {
@@ -218,10 +181,15 @@ public class PlayerController : MonoBehaviour
 
         camForward = camForward.normalized;
         camRight = camRight.normalized;
+
+        movePlayer = playerInput.x * camRight + playerInput.z * camForward;
+
+        player.transform.LookAt(player.transform.position + movePlayer);
+
+        camPosition = new Vector3(camPlayer.transform.position.x, camPlayer.transform.position.y, camPlayer.transform.position.z);
     }
   
     //Fucion para Jump
-
     public void playerSkills()
     {
         if(player.isGrounded && Input.GetButtonDown("Jump"))
@@ -233,6 +201,43 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //vida y sprite vida
+    public void spriteHealth()
+    {
+        if (curHealth > maxHealth)
+        {
+            curHealth = maxHealth;
+        }
+
+
+        // Animación sprite vidas
+
+        timeCounter += Time.deltaTime;
+        if (timeCounter >= velocityHealth)
+        {
+
+            if (curSprite >= 6)
+            {
+                curSprite = -1;
+            }
+            curSprite++;
+            timeCounter = 0;
+        }
+    }
+
+    //setear coldown de ataque/ daño recibido etc
+    public void playerColdown()
+    {
+        if (coldown == true)
+        {
+            timeCounterCd += Time.deltaTime;
+            if (timeCounterCd >= cdTime)
+            {
+                timeCounterCd = 0;
+                coldown = false;
+            }
+        }
+    }
 
     //funcion para la gravedad
     public void setGravity()
@@ -248,23 +253,30 @@ public class PlayerController : MonoBehaviour
         {
             fallVelocity -= gravity * Time.deltaTime;
             movePlayer.y = fallVelocity;
+            CreateDust();
         }
     }
     
+    //muerte del jugador
     public void die()
     {
         UnityEngine.Cursor.visible = true;
         UnityEngine.Cursor.lockState = CursorLockMode.None;
         menuManager.GameOver();
     }
+
     private void OnTriggerEnter(Collider other)
     {
+        //Cuando lleguemos a la parte donde se gana, y el god mode sea falso setearemos el cursor visible 
+        //y que pueda salir de la ventana del juego, seguidamente pasamos a la escena de win
         if (other.tag == "Win" && god == false)
         {
             UnityEngine.Cursor.visible = true;
             UnityEngine.Cursor.lockState = CursorLockMode.None;
             menuManager.WinScene();
         }
+
+        //si el jugador recibe daño cuando haya pasado el coldown que reciba daño setee el coldown a 0 otra vez y haga una animación el player
         if(coldown == false && god ==false)
             {
                 if (other.tag == "Projectil")
@@ -275,8 +287,10 @@ public class PlayerController : MonoBehaviour
 
                 }
                 
-
+        
         }
+
+        // Si el jugador muere, el cursor se muetra visible , y lo puedes mover fuera de la ventana, seguidamente pasa a la escena de gameover
         if (other.tag == "Lose" && god == false)
         {
 
@@ -284,7 +298,8 @@ public class PlayerController : MonoBehaviour
             UnityEngine.Cursor.lockState = CursorLockMode.None;
             menuManager.GameOver();
         }
-           
+
+        //Si el jugador cae al vacio y entra en el trigger CamaraCaida se desactivara la camara actual de tercera persona y se activara una que simplemente mire al jugador pero no lo siga
         if (other.tag == "CamaraCaida" && god == false)
         {
             camPlayer.SetActive(true);
@@ -292,11 +307,19 @@ public class PlayerController : MonoBehaviour
             camCaida.SetActive(false);
         }
 
-
+        //Activar tutorial 1
+        if(other.tag == "Tutorial1")
+        {
+            tutorial1.SetActive(true);
+            oldtimescale = Time.timeScale;
+            Time.timeScale = 0f;
+        }
 
     }
+
     private void OnTriggerExit(Collider other)
     {
+        //Si el jugador cae al vacio y entra en el trigger CamaraCaida se desactivara la camara actual de tercera persona y se activara una que simplemente mire al jugador pero no lo siga 
         if (other.tag == "CamaraCaida" && god == false)
         {
             camPlayer.SetActive(false);
@@ -306,9 +329,42 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-  
+    //chequear si es godmode o no
+    public void checkGod()
+    {
+        if (Input.GetKeyDown("f10"))
+        {
+
+            if (!god)
+            {
+                god = true;
+            }
+            else
+            {
+                god = false;
+            }
+        }
+        if (god)
+        {
+
+            movePlayer = movePlayer * godSpeed;
+            godMode();
+
+        }
+        else
+        {
+            movePlayer = movePlayer * playerSpeed;
+            setGravity();
+            playerSkills();
 
 
+        }
+
+        player.Move(movePlayer * Time.deltaTime);
+
+    }
+
+    //controles de el godmode
     public void godMode()
     {
 
@@ -337,8 +393,10 @@ public class PlayerController : MonoBehaviour
         player.Move(movePlayer);
     }
 
+    //shake camera, quitar vida al jugador, y cuando la vida sea 0 que pase a la muerte del jugador
     public void damage(int dmg)
     {
+        CameraShake.Instance.ShakeCamera(5f, .2f);
         curHealth = curHealth - dmg;
         if (curHealth < 0)
         {
@@ -357,6 +415,16 @@ public class PlayerController : MonoBehaviour
         }
     }
  
+    public void CreateDust()
+    {
+        dust.Play();
+    }
+    //playTime 
+    public void PlayTime()
+    {
+        Time.timeScale = oldtimescale;
+    }
+
 }
 
 

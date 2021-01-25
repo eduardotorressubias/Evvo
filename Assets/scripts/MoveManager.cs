@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class MoveManager : MonoBehaviour
 {
-    public VideoPlayer VideoPlayer; 
+    public VideoPlayer VideoPlayer;
     public string SceneName;
     void Start()
     {
@@ -18,4 +18,6 @@ public class MoveManager : MonoBehaviour
     {
         SceneManager.LoadScene(SceneName);
     }
+
+    
 }
