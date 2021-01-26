@@ -69,12 +69,6 @@ public class PlayerController : MonoBehaviour
 
     public ParticleSystem dust;
 
-    //Tutorial
-    public GameObject tutorial1;
-    public GameObject tutorial2;
-    public GameObject tutorial3;
-    public float oldtimescale =0f;
-
 
     void Start()
     {
@@ -117,7 +111,6 @@ public class PlayerController : MonoBehaviour
 
         playerColdown();
 
-        
 
     }
 
@@ -307,14 +300,6 @@ public class PlayerController : MonoBehaviour
             camCaida.SetActive(false);
         }
 
-        //Activar tutorial 1
-        if(other.tag == "Tutorial1")
-        {
-            tutorial1.SetActive(true);
-            oldtimescale = Time.timeScale;
-            Time.timeScale = 0f;
-        }
-
     }
 
     private void OnTriggerExit(Collider other)
@@ -418,11 +403,6 @@ public class PlayerController : MonoBehaviour
     public void CreateDust()
     {
         dust.Play();
-    }
-    //playTime 
-    public void PlayTime()
-    {
-        Time.timeScale = oldtimescale;
     }
 
 }
