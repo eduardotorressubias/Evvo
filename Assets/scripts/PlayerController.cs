@@ -12,13 +12,13 @@ public class PlayerController : MonoBehaviour
     public float verticalMove;
     private Vector3 playerInput;
     public CharacterController player;
-    
-    
-    public float playerSpeed=10f;
+
+
+    public float playerSpeed = 10f;
     public float godSpeed = 0.25f;
     public Vector3 movePlayer = Vector3.zero;
     public float gravity = 80f;
-    public float fallVelocity=0f;
+    public float fallVelocity = 0f;
     public float jumpForce;
 
 
@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
 
 
     //Attack
-    
+
     public GameObject attackbox;
     private bool attacking = false;
     public GameObject sonidoSalto;
@@ -63,11 +63,17 @@ public class PlayerController : MonoBehaviour
     public bool god = false;
     public bool goUp;
     public bool goDown;
-    public float flow=5f;
+    public float flow = 5f;
 
     //particles
 
     public ParticleSystem dust;
+
+    //Tutorial
+    public GameObject tutorial1;
+    public GameObject tutorial2;
+    public GameObject tutorial3;
+    public float oldtimescale = 0f;
 
 
     void Start()
@@ -88,7 +94,7 @@ public class PlayerController : MonoBehaviour
         movement();
 
         //movimiento + camara
-        
+
         camDirection();
 
         //cursor visible
@@ -110,6 +116,7 @@ public class PlayerController : MonoBehaviour
         //Start coldown
 
         playerColdown();
+
 
 
     }
@@ -154,13 +161,13 @@ public class PlayerController : MonoBehaviour
     //Movimiento wasd
     public void movement()
     {
-        
+
         horizontalMove = Input.GetAxis("Horizontal");
         verticalMove = Input.GetAxis("Vertical");
 
         playerInput = new Vector3(horizontalMove, 0, verticalMove);
         playerInput = Vector3.ClampMagnitude(playerInput, 1);
-        
+
     }
 
     //Funcion para la direccion a la que mira la camara
@@ -181,16 +188,16 @@ public class PlayerController : MonoBehaviour
 
         camPosition = new Vector3(camPlayer.transform.position.x, camPlayer.transform.position.y, camPlayer.transform.position.z);
     }
-  
+
     //Fucion para Jump
     public void playerSkills()
     {
-        if(player.isGrounded && Input.GetButtonDown("Jump"))
+        if (player.isGrounded && Input.GetButtonDown("Jump"))
         {
             Instantiate(sonidoSalto);
             fallVelocity = jumpForce;
             movePlayer.y = fallVelocity;
-          
+
         }
     }
 
@@ -235,9 +242,9 @@ public class PlayerController : MonoBehaviour
     //funcion para la gravedad
     public void setGravity()
     {
-       
-        
-       if (player.isGrounded)
+
+
+        if (player.isGrounded)
         {
             fallVelocity = -gravity * Time.deltaTime;
             movePlayer.y = fallVelocity;
@@ -249,7 +256,7 @@ public class PlayerController : MonoBehaviour
             CreateDust();
         }
     }
-    
+
     //muerte del jugador
     public void die()
     {
@@ -270,17 +277,17 @@ public class PlayerController : MonoBehaviour
         }
 
         //si el jugador recibe daño cuando haya pasado el coldown que reciba daño setee el coldown a 0 otra vez y haga una animación el player
-        if(coldown == false && god ==false)
+        if (coldown == false && god == false)
+        {
+            if (other.tag == "Projectil")
             {
-                if (other.tag == "Projectil")
-                {
-                    playerAnimation.OnDmgComplete();
-                    damage(1);
-                    coldown = true;
+                playerAnimation.OnDmgComplete();
+                damage(1);
+                coldown = true;
 
-                }
-                
-        
+            }
+
+
         }
 
         // Si el jugador muere, el cursor se muetra visible , y lo puedes mover fuera de la ventana, seguidamente pasa a la escena de gameover
@@ -296,8 +303,16 @@ public class PlayerController : MonoBehaviour
         if (other.tag == "CamaraCaida" && god == false)
         {
             camPlayer.SetActive(true);
-           
+
             camCaida.SetActive(false);
+        }
+
+        //Activar tutorial 1
+        if (other.tag == "Tutorial1")
+        {
+            tutorial1.SetActive(true);
+            oldtimescale = Time.timeScale;
+            Time.timeScale = 0f;
         }
 
     }
@@ -387,25 +402,34 @@ public class PlayerController : MonoBehaviour
         {
             die();
         }
-        else if(curHealth == 0){
-            
+        else if (curHealth == 0)
+        {
+
             go[curHealth].SetActive(false);
             die();
         }
         else
         {
-            UnityEngine.Debug.Log("vidas = "+ curHealth);
+            UnityEngine.Debug.Log("vidas = " + curHealth);
             go[curHealth].SetActive(false);
 
         }
     }
- 
+
     public void CreateDust()
     {
         dust.Play();
     }
+    //playTime 
+    public void PlayTime()
+    {
+        Time.timeScale = oldtimescale;
+    }
 
 }
+
+
+
 
 
 

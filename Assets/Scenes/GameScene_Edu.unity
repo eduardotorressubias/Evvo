@@ -32091,6 +32091,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   VideoPlayer: {fileID: 989395122}
   tutorial: {fileID: 1632808136}
+  trigger: {fileID: 1728161801}
 --- !u!1 &1732076630
 GameObject:
   m_ObjectHideFlags: 0

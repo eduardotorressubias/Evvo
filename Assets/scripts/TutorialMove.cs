@@ -8,6 +8,7 @@ public class TutorialMove : MonoBehaviour
 {
     public VideoPlayer VideoPlayer;
     public GameObject tutorial;
+    public GameObject trigger;
     private PlayerController player;
     void Start()
     {
@@ -32,6 +33,8 @@ public class TutorialMove : MonoBehaviour
     {
         tutorial.SetActive(false);
         player.PlayTime();
+        trigger.SetActive(false);
+
 
     }
 }
