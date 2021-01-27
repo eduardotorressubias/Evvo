@@ -15,8 +15,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Options.unity
     guid: 08d827399783b8d42b944b2abdaa05af
   - enabled: 1
-    path: Assets/Scenes/GameScene_Dani.unity
-    guid: 3867731ddd15f824997e8354fbacd465
+    path: Assets/Scenes/GameScene.unity
+    guid: abe889489791b9347bd2341852db052f
   - enabled: 1
     path: Assets/Scenes/LoseScene.unity
     guid: 657276907e9b9f045a3d3751c9f1791f
