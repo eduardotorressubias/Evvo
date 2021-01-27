@@ -16,6 +16,9 @@ TagManager:
   - Enemy
   - Attack
   - Platform
+  - Tutorial1
+  - Tutorial2
+  - Tutorial3
   layers:
   - Default
   - TransparentFX

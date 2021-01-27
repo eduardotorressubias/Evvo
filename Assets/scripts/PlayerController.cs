@@ -311,9 +311,22 @@ public class PlayerController : MonoBehaviour
         if (other.tag == "Tutorial1")
         {
             tutorial1.SetActive(true);
-            oldtimescale = Time.timeScale;
-            Time.timeScale = 0f;
+            //oldtimescale = Time.timeScale;
+            //Time.timeScale = 0f;
         }
+        if (other.tag == "Tutorial2")
+        {
+            tutorial2.SetActive(true);
+            //oldtimescale = Time.timeScale;
+            //Time.timeScale = 0f;
+        }
+        if (other.tag == "Tutorial3")
+        {
+            tutorial3.SetActive(true);
+            //oldtimescale = Time.timeScale;
+            //Time.timeScale = 0f;
+        }
+
 
     }
 
@@ -421,10 +434,10 @@ public class PlayerController : MonoBehaviour
         dust.Play();
     }
     //playTime 
-    public void PlayTime()
-    {
-        Time.timeScale = oldtimescale;
-    }
+    //public void PlayTime()
+    //{
+    //    Time.timeScale = oldtimescale;
+    //}
 
 }
 
