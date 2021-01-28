@@ -13,11 +13,14 @@ public class OptionsMenu : MonoBehaviour
 {
     static string brightness_PPrefsTag = "Brightness";
     static string gamma_PPrefsTag = "Gamma";
+    static string music_PPrefsTag = "Music";
+    static string sfx_PPrefsTag = "SFX";
     static string resolution_PPrefsTag = "Resolution";
     static string fullscreen_PPrefsTag = "FullScreen";
     static string quality_PPrefsTag = "Quality";
 
     [SerializeField] Canvas canvas;
+    [SerializeField] AudioMixer myMixer;
     [SerializeField] Volume volume;
 
     [SerializeField] TMP_Dropdown resolution;
@@ -26,6 +29,9 @@ public class OptionsMenu : MonoBehaviour
 
     public bool menuIsOpen = false;
     private MenuManager menuManager;
+
+    [SerializeField] Slider sliMusic;
+    [SerializeField] Slider sliSFX;
     [SerializeField] Slider sliBrightness;
     [SerializeField] Slider sliGamme;
 
@@ -44,6 +50,8 @@ public class OptionsMenu : MonoBehaviour
 
         sliBrightness.value = PlayerPrefs.GetFloat(brightness_PPrefsTag, 0.75f);
         sliGamme.value = PlayerPrefs.GetFloat(gamma_PPrefsTag, 0.1f);
+        sliMusic.value = PlayerPrefs.GetFloat(music_PPrefsTag, 0.5f);
+        sliSFX.value = PlayerPrefs.GetFloat(sfx_PPrefsTag, 0.5f);
 
 
         {
@@ -125,6 +133,17 @@ public class OptionsMenu : MonoBehaviour
         liftGammaGain.gamma.value = Vector4.one * NormalizedToRange(newValue, -0.5f, 2f);
     }
 
+    public void OnSliMusicValue(float newValue)
+    {
+        PlayerPrefs.SetFloat(music_PPrefsTag, newValue);
+        myMixer.SetFloat("Music", LinearToDecibel(newValue));
+    }
+
+    public void OnSliSFXValue(float newValue)
+    {
+        PlayerPrefs.SetFloat(sfx_PPrefsTag, newValue);
+        myMixer.SetFloat("SFX", LinearToDecibel(newValue));
+    }
 
 
     float oldTimeScale = 0f;
@@ -167,7 +186,24 @@ public class OptionsMenu : MonoBehaviour
         }
     }
 
+    public static float LinearToDecibel(float linear)
+    {
+        float dB;
 
+        if (linear != 0)
+            dB = 20.0f * Mathf.Log10(linear);
+        else
+            dB = -144.0f;
+
+        return dB;
+    }
+
+    public static float DecibelToLinear(float dB)
+    {
+        float linear = Mathf.Pow(10.0f, dB / 20.0f);
+
+        return linear;
+    }
 
     public float NormalizedToRange(float value, float min, float max)
     {
