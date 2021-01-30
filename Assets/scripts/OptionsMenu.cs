@@ -152,6 +152,7 @@ public class OptionsMenu : MonoBehaviour
     {
         if (!menuIsOpen)
         {
+
             canvas.gameObject.SetActive(true);
             oldTimeScale = Time.timeScale;
             Time.timeScale = 0f;
