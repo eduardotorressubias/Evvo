@@ -127,7 +127,6 @@ public class EnemyController : MonoBehaviour
         //Make sure enemy doesn't move
         agent.SetDestination(transform.position);
         playerLook = new Vector3(player.transform.position.x, transform.localPosition.y , player.transform.position.z);
-        Debug.Log(transform.localPosition.y);
         transform.LookAt(playerLook);
 
         if (!alreadyAttacked)
