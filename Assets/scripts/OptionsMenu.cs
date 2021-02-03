@@ -27,16 +27,14 @@ public class OptionsMenu : MonoBehaviour
     [SerializeField] TMP_Dropdown fullscreen;
     [SerializeField] TMP_Dropdown quality;
 
+    public bool menuIsOpen = false;
+    private MenuManager menuManager;
+
     [SerializeField] Slider sliMusic;
     [SerializeField] Slider sliSFX;
     [SerializeField] Slider sliBrightness;
     [SerializeField] Slider sliGamme;
 
-    public GameObject canvasHUD;
-    public GameObject canvasTutorial;
-
-    public bool menuIsOpen = false;
-    private MenuManager menuManager;
 
     ColorAdjustments colorAdjustments;
     LiftGammaGain liftGammaGain;
@@ -154,8 +152,6 @@ public class OptionsMenu : MonoBehaviour
     {
         if (!menuIsOpen)
         {
-            canvasHUD.SetActive(false);
-            canvasTutorial.SetActive(false);
             canvas.gameObject.SetActive(true);
             oldTimeScale = Time.timeScale;
             Time.timeScale = 0f;
@@ -173,9 +169,7 @@ public class OptionsMenu : MonoBehaviour
             Time.timeScale = oldTimeScale;
             menuIsOpen = false;
             PlayerPrefs.Save();
-            canvasHUD.SetActive(true);
-            canvasTutorial.SetActive(true);
-
+            
         }
     }
 
@@ -246,5 +240,4 @@ public class OptionsMenu : MonoBehaviour
             Screen.resolutions[resolution.value].refreshRate
         );
     }
-
 }

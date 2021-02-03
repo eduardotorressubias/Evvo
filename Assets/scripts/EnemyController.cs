@@ -19,6 +19,7 @@ public class EnemyController : MonoBehaviour
     public Vector3 walkPoint;
     bool walkPointSet;
     public float walkPointRange;
+    public float AlturaEnemigo;
     public bool boss;
 
     //Attacking
@@ -126,7 +127,7 @@ public class EnemyController : MonoBehaviour
     {
         //Make sure enemy doesn't move
         agent.SetDestination(transform.position);
-        playerLook = new Vector3(player.transform.position.x, transform.localPosition.y , player.transform.position.z);
+        playerLook = new Vector3(player.transform.position.x, AlturaEnemigo, player.transform.position.z);
         transform.LookAt(playerLook);
 
         if (!alreadyAttacked)
