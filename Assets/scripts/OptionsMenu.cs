@@ -35,6 +35,8 @@ public class OptionsMenu : MonoBehaviour
     [SerializeField] Slider sliBrightness;
     [SerializeField] Slider sliGamme;
 
+    public GameObject canvasHUD;
+    public GameObject canvasTutorial;
 
     ColorAdjustments colorAdjustments;
     LiftGammaGain liftGammaGain;
@@ -152,6 +154,8 @@ public class OptionsMenu : MonoBehaviour
     {
         if (!menuIsOpen)
         {
+            canvasHUD.SetActive(false);
+            canvasTutorial.SetActive(false);
             canvas.gameObject.SetActive(true);
             oldTimeScale = Time.timeScale;
             Time.timeScale = 0f;
@@ -169,7 +173,9 @@ public class OptionsMenu : MonoBehaviour
             Time.timeScale = oldTimeScale;
             menuIsOpen = false;
             PlayerPrefs.Save();
-            
+            canvasHUD.SetActive(true);
+            canvasTutorial.SetActive(true);
+
         }
     }
 

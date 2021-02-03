@@ -13,13 +13,16 @@ public class TutorialMove : MonoBehaviour
     static private bool tutorial1 = true;
     static private bool tutorial2 = true;
     static private bool tutorial3 = true;
+    private PlayerAnimation animator;
 
     private OptionsMenu pause;
     void Start()
     {
         player = FindObjectOfType<PlayerController>();
+        animator = FindObjectOfType<PlayerAnimation>();
         pause = FindObjectOfType<OptionsMenu>();
         VideoPlayer.loopPointReached += skip;
+
     }
 
     private void OnTriggerStay(Collider other)
@@ -33,7 +36,7 @@ public class TutorialMove : MonoBehaviour
             skip2();
         }
 
-        if (Input.GetKey("space") && other.tag=="Player"&& tutorial2==true)
+        if (Input.GetKey("space") && other.tag=="Player" && tutorial2==true && tutorial1 == false)
         {
             Debug.Log("2 "+tutorial2);
             tutorial2 = false;
@@ -41,11 +44,11 @@ public class TutorialMove : MonoBehaviour
             skip2();
         }
         
-        if(Input.GetKeyDown(KeyCode.Mouse0) && other.tag == "Player" && tutorial3==true)
+        if(Input.GetKeyDown(KeyCode.Mouse0) && other.tag == "Player" && tutorial3==true && tutorial1 == false && tutorial2 == false)
         {
             Debug.Log("3" +tutorial3);
             tutorial3 = false;
-            
+            animator.OpenDoor();
             skip2();
         }
     }
@@ -53,16 +56,7 @@ public class TutorialMove : MonoBehaviour
     void skip(VideoPlayer vp){}
     void skip2()
     {
-        //if (pause.menuIsOpen)
-        //{
-        //    tutorial.SetActive(false);
-        //}
-       
-
         tutorial.SetActive(false);
-        //player.PlayTime();
         trigger.SetActive(false);
-
-
     }
 }

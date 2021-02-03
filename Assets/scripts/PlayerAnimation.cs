@@ -12,4 +12,9 @@ public class PlayerAnimation : MonoBehaviour
     {
         animator.SetTrigger("dmg");
     }
+    public void OpenDoor()
+    {
+
+        animator.SetTrigger("abrir");
+    }
 }
