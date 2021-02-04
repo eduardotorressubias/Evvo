@@ -28,6 +28,7 @@ public class OptionsMenu : MonoBehaviour
     [SerializeField] TMP_Dropdown quality;
 
     public bool menuIsOpen = false;
+    public bool goMenu = false;
     private MenuManager menuManager;
 
     [SerializeField] Slider sliMusic;
@@ -47,7 +48,7 @@ public class OptionsMenu : MonoBehaviour
     {
         volume.profile.TryGet<ColorAdjustments>(out colorAdjustments);
         volume.profile.TryGet<LiftGammaGain>(out liftGammaGain);
-
+        goMenu = false;
         menuManager = FindObjectOfType<MenuManager>();
 
         sliBrightness.value = PlayerPrefs.GetFloat(brightness_PPrefsTag, 0.75f);
@@ -183,6 +184,7 @@ public class OptionsMenu : MonoBehaviour
     {
         if (menuIsOpen)
         {
+            goMenu = true;
             canvas.gameObject.SetActive(false);
             Time.timeScale = oldTimeScale;
             menuIsOpen = false;

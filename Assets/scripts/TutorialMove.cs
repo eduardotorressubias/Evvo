@@ -14,6 +14,7 @@ public class TutorialMove : MonoBehaviour
     static private bool tutorial2 = true;
     static private bool tutorial3 = true;
     private PlayerAnimation animator;
+    private OptionsMenu options;
 
     private OptionsMenu pause;
     void Start()
@@ -22,7 +23,16 @@ public class TutorialMove : MonoBehaviour
         animator = FindObjectOfType<PlayerAnimation>();
         pause = FindObjectOfType<OptionsMenu>();
         VideoPlayer.loopPointReached += skip;
-
+        options = FindObjectOfType<OptionsMenu>();
+    }
+    private void Update()
+    {
+        if (options.goMenu)
+        {
+            tutorial1 = true;
+            tutorial2 = true;
+            tutorial3 = true;
+        }
     }
 
     private void OnTriggerStay(Collider other)
