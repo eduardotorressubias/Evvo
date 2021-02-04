@@ -29,6 +29,7 @@ public class OptionsMenu : MonoBehaviour
 
     public bool menuIsOpen = false;
     public bool goMenu = false;
+    public bool afterMenu = false;
     private MenuManager menuManager;
 
     [SerializeField] Slider sliMusic;
@@ -182,7 +183,7 @@ public class OptionsMenu : MonoBehaviour
 
     public void OnButGotoMainMenu()
     {
-        if (menuIsOpen)
+        if (menuIsOpen && !afterMenu)
         {
             goMenu = true;
             canvas.gameObject.SetActive(false);
@@ -191,6 +192,12 @@ public class OptionsMenu : MonoBehaviour
             PlayerPrefs.Save();
             menuManager.MainMenu();
 
+        }else if(menuIsOpen && afterMenu)
+        {
+            
+            menuIsOpen = false;
+            PlayerPrefs.Save();
+            menuManager.MainMenu();
         }
     }
 
