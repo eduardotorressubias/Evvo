@@ -23,6 +23,7 @@ public class OptionsMenu : MonoBehaviour
     [SerializeField] AudioMixer myMixer;
     [SerializeField] Volume volume;
 
+
     [SerializeField] TMP_Dropdown resolution;
     [SerializeField] TMP_Dropdown fullscreen;
     [SerializeField] TMP_Dropdown quality;
@@ -47,6 +48,7 @@ public class OptionsMenu : MonoBehaviour
 
     void Start()
     {
+
         volume.profile.TryGet<ColorAdjustments>(out colorAdjustments);
         volume.profile.TryGet<LiftGammaGain>(out liftGammaGain);
         goMenu = false;
@@ -123,7 +125,9 @@ public class OptionsMenu : MonoBehaviour
         {
             OnOpenMenu();
         }
+
     }
+
 
     public void OnSliBrightnessValue(float newValue)
     {
