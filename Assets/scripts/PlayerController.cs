@@ -14,6 +14,10 @@ public class PlayerController : MonoBehaviour
     public CharacterController player;
 
 
+    //public Rigidbody rb;
+    //public float distToGround;
+
+
     public float playerSpeed = 10f;
     public float godSpeed = 0.25f;
     public Vector3 movePlayer = Vector3.zero;
@@ -82,13 +86,16 @@ public class PlayerController : MonoBehaviour
        
         menuManager = FindObjectOfType<MenuManager>();
         player = GetComponent<CharacterController>();
+        //rb = GetComponent<Rigidbody>();
         optionsMenu = FindObjectOfType<OptionsMenu>();
         UnityEngine.Cursor.visible = false;
         UnityEngine.Cursor.lockState = CursorLockMode.Locked;
         curHealth = maxHealth;
+
+       
     }
 
-    void Update()
+    void FixedUpdate()
     {
         // Movimiento
 
@@ -198,8 +205,14 @@ public class PlayerController : MonoBehaviour
             Instantiate(sonidoSalto);
             fallVelocity = jumpForce;
             movePlayer.y = fallVelocity;
+            
 
         }
+        else if (!player.isGrounded)
+        {
+            CreateDust();
+        }
+       
     }
 
     //vida y sprite vida
@@ -249,12 +262,13 @@ public class PlayerController : MonoBehaviour
         {
             fallVelocity = -gravity * Time.deltaTime;
             movePlayer.y = fallVelocity;
+            
         }
         else
         {
             fallVelocity -= gravity * Time.deltaTime;
             movePlayer.y = fallVelocity;
-            CreateDust();
+            
         }
     }
 
@@ -329,6 +343,7 @@ public class PlayerController : MonoBehaviour
         }
 
 
+
     }
 
     private void OnTriggerExit(Collider other)
@@ -375,6 +390,7 @@ public class PlayerController : MonoBehaviour
         }
 
         player.Move(movePlayer * Time.deltaTime);
+        //rb.velocity = ((movePlayer * Time.deltaTime) - rb.position) / Time.fixedDeltaTime;
 
     }
 

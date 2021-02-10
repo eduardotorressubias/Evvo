@@ -19,6 +19,7 @@ TagManager:
   - Tutorial1
   - Tutorial2
   - Tutorial3
+  - Terrain
   layers:
   - Default
   - TransparentFX
