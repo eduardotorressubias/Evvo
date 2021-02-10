@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
     public int dmg = 0;
     private bool coldown = false;
     public float cdTime = 0.6f;
+    public bool consumir = false;
 
 
     //interfaz
@@ -37,7 +38,7 @@ public class PlayerController : MonoBehaviour
     public int curSprite = 0;
     public GameObject[] go;
     private OptionsMenu optionsMenu;
-    private PlayerAnimation playerAnimation;
+
 
 
 
@@ -78,7 +79,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        playerAnimation = FindObjectOfType<PlayerAnimation>();
+       
         menuManager = FindObjectOfType<MenuManager>();
         player = GetComponent<CharacterController>();
         optionsMenu = FindObjectOfType<OptionsMenu>();
@@ -281,7 +282,7 @@ public class PlayerController : MonoBehaviour
         {
             if (other.tag == "Projectil")
             {
-                playerAnimation.OnDmgComplete();
+                
                 damage(1);
                 coldown = true;
 
@@ -433,12 +434,24 @@ public class PlayerController : MonoBehaviour
     {
         dust.Play();
     }
-    //playTime 
-    //public void PlayTime()
-    //{
-    //    Time.timeScale = oldtimescale;
-    //}
+    
 
+    public void SumarVida()
+    {
+     
+        if (curHealth < 3 && curHealth > 0)
+        {
+            curHealth = curHealth + 1;
+            go[curHealth-1].SetActive(true);
+            consumir = true;
+        }
+        else
+        {
+            consumir = false;
+        }
+
+
+    }
 }
 
 

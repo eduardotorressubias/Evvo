@@ -18,8 +18,8 @@ Material:
   stringTagMap:
     MotionVector: User
   disabledShaderPasses:
-  - MOTIONVECTORS
   - TransparentBackface
+  - MOTIONVECTORS
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -54,9 +54,9 @@ Material:
     m_Floats:
     - Vector1_3CD621C9: 1
     - Vector1_5CCE7B42: 2.69
-    - Vector1_8E1698BB: 8.01
-    - Vector1_9E3D8C8B: 30
-    - Vector1_B4406D25: 0.05
+    - Vector1_8E1698BB: 20
+    - Vector1_9E3D8C8B: 20
+    - Vector1_B4406D25: 0.1
     - Vector1_ED9AF900: 0
     - _AlphaClip: 0
     - _AlphaCutoffEnable: 0

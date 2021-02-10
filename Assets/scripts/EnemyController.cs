@@ -92,8 +92,11 @@ public class EnemyController : MonoBehaviour
         else if (walkPointSet)
         {
             agent.SetDestination(walkPoint);
+
+            if (agent.velocity.normalized != Vector3.zero) {
+                transform.rotation = Quaternion.LookRotation(agent.velocity.normalized);
+            }
             
-            transform.rotation = Quaternion.LookRotation(agent.velocity.normalized);
 
 
             Vector3 distanceToWalkPoint = transform.position - walkPoint;
