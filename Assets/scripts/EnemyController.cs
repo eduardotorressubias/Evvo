@@ -41,7 +41,7 @@ public class EnemyController : MonoBehaviour
     public GameObject soul;
 
     private TriggerSFX sfx;
-    
+    private Puerta_final anim;
 
     private void Awake()
     {
@@ -49,6 +49,7 @@ public class EnemyController : MonoBehaviour
         player = FindObjectOfType<PlayerController>();
         agent = GetComponent<NavMeshAgent>();
         sfx = FindObjectOfType<TriggerSFX>();
+        anim = FindObjectOfType<Puerta_final>();
         timeCounter = 0;
     }
 
@@ -173,9 +174,10 @@ public class EnemyController : MonoBehaviour
     {
         if (semiboss)
         {
-            //portal.SetActive(true);
+            portal.SetActive(true);
             soul.SetActive(true);
             dead = true;
+            anim.puertaFinal();
             sfx.SemibossDead();
         }
         else
