@@ -1038,6 +1038,7 @@ MonoBehaviour:
   maxHealth: 3
   dmg: 0
   cdTime: 0.5
+  consumir: 0
   velocityHealth: 0.1
   curSprite: 0
   go:
@@ -1392,7 +1393,8 @@ AudioSource:
   m_GameObject: {fileID: 150560536}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 8190605530303514848, guid: 93038707a0835dd44a88cf067b9224c5,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: b275a0a3fe9d7aa44bac9b415a20e513, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.21
@@ -3093,76 +3095,6 @@ Transform:
   m_Father: {fileID: 808044760}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &357465904
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a81bcacc415a1f743bfdf703afc52027, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  active: 1
-  m_AdvancedMode: 0
-  rotation:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-    max: 360
-  skyIntensityMode:
-    m_OverrideState: 0
-    m_Value: 0
-  exposure:
-    m_OverrideState: 0
-    m_Value: 7
-  multiplier:
-    m_OverrideState: 0
-    m_Value: 1
-    min: 0
-  upperHemisphereLuxValue:
-    m_OverrideState: 0
-    m_Value: 1
-    min: 0
-  upperHemisphereLuxColor:
-    m_OverrideState: 0
-    m_Value: {x: 0, y: 0, z: 0}
-  desiredLuxValue:
-    m_OverrideState: 0
-    m_Value: 20000
-  updateMode:
-    m_OverrideState: 0
-    m_Value: 0
-  updatePeriod:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-  includeSunInBaking:
-    m_OverrideState: 0
-    m_Value: 0
-  top:
-    m_OverrideState: 0
-    m_Value: {r: 0.6273585, g: 0.72791255, b: 1, a: 1}
-    hdr: 1
-    showAlpha: 0
-    showEyeDropper: 1
-  middle:
-    m_OverrideState: 0
-    m_Value: {r: 1, g: 0.8160377, b: 0.9848279, a: 1}
-    hdr: 1
-    showAlpha: 0
-    showEyeDropper: 1
-  bottom:
-    m_OverrideState: 0
-    m_Value: {r: 1, g: 0.84663475, b: 0.7216981, a: 1}
-    hdr: 1
-    showAlpha: 0
-    showEyeDropper: 1
-  gradientDiffusion:
-    m_OverrideState: 0
-    m_Value: 1
 --- !u!1 &384535505
 GameObject:
   m_ObjectHideFlags: 0
@@ -8099,7 +8031,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: -0.0024652672, y: 0.98770845, z: -0.15550156, w: -0.015658783}
+  m_LocalRotation: {x: -0.002464798, y: 0.98770857, z: -0.15550157, w: -0.015655803}
   m_LocalPosition: {x: 9.028596, y: -46.311905, z: -16.000698}
   m_LocalScale: {x: 1.107766, y: 1.107766, z: 1.107766}
   m_Children:
@@ -8116,7 +8048,8 @@ AudioSource:
   m_GameObject: {fileID: 963194225}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 8336291199967930679, guid: 93038707a0835dd44a88cf067b9224c5,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 12706f58a0d71a24cbcfe323e94a1d49, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.07
@@ -9708,7 +9641,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Profile: {fileID: 11400000, guid: 112c1781c0439f7438b55a8440481961, type: 2}
   m_StaticLightingSkyUniqueID: 3
-  m_SkySettings: {fileID: 357465904}
+  m_SkySettings: {fileID: 1680958297}
   m_SkySettingsFromProfile: {fileID: 4303214436730943564, guid: 112c1781c0439f7438b55a8440481961,
     type: 2}
 --- !u!4 &1098106872
@@ -11071,7 +11004,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1215774919}
-  m_LocalRotation: {x: -0.002551314, y: 0.98705626, z: -0.1595759, w: -0.015781146}
+  m_LocalRotation: {x: -0.0025509086, y: 0.98705626, z: -0.15957591, w: -0.015778637}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -14279,7 +14212,8 @@ AudioSource:
   m_GameObject: {fileID: 1605770917}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 8190605530303514848, guid: 93038707a0835dd44a88cf067b9224c5,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: b275a0a3fe9d7aa44bac9b415a20e513, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.21
@@ -15000,6 +14934,76 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1667110433}
   m_Mesh: {fileID: -4095333688218420394, guid: 40c6329094c8333488e0af1f28321bd3, type: 3}
+--- !u!114 &1680958297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a81bcacc415a1f743bfdf703afc52027, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  rotation:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+    max: 360
+  skyIntensityMode:
+    m_OverrideState: 0
+    m_Value: 0
+  exposure:
+    m_OverrideState: 0
+    m_Value: 7
+  multiplier:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0
+  upperHemisphereLuxValue:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0
+  upperHemisphereLuxColor:
+    m_OverrideState: 0
+    m_Value: {x: 0, y: 0, z: 0}
+  desiredLuxValue:
+    m_OverrideState: 0
+    m_Value: 20000
+  updateMode:
+    m_OverrideState: 0
+    m_Value: 0
+  updatePeriod:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+  includeSunInBaking:
+    m_OverrideState: 0
+    m_Value: 0
+  top:
+    m_OverrideState: 0
+    m_Value: {r: 0.6273585, g: 0.72791255, b: 1, a: 1}
+    hdr: 1
+    showAlpha: 0
+    showEyeDropper: 1
+  middle:
+    m_OverrideState: 0
+    m_Value: {r: 1, g: 0.8160377, b: 0.9848279, a: 1}
+    hdr: 1
+    showAlpha: 0
+    showEyeDropper: 1
+  bottom:
+    m_OverrideState: 0
+    m_Value: {r: 1, g: 0.84663475, b: 0.7216981, a: 1}
+    hdr: 1
+    showAlpha: 0
+    showEyeDropper: 1
+  gradientDiffusion:
+    m_OverrideState: 0
+    m_Value: 1
 --- !u!1 &1689574117
 GameObject:
   m_ObjectHideFlags: 0
@@ -17553,7 +17557,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1953565960}
-  m_LocalRotation: {x: -0.0018963334, y: 0.9891125, z: -0.14659199, w: -0.012795289}
+  m_LocalRotation: {x: -0.0018944518, y: 0.9891127, z: -0.14659199, w: -0.012782597}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -18203,7 +18207,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh23436
+  m_Name: pb_Mesh32376
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -18658,7 +18662,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!82 &2027191427
 AudioSource:
   m_ObjectHideFlags: 0
@@ -18668,9 +18672,10 @@ AudioSource:
   m_GameObject: {fileID: 2027191426}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 8336291199967930679, guid: 93038707a0835dd44a88cf067b9224c5,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: aede7eb635803c6488b52a65b4125067, type: 3}
-  m_PlayOnAwake: 0
+  m_PlayOnAwake: 1
   m_Volume: 0.03
   m_Pitch: 1
   Loop: 1
@@ -19082,7 +19087,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9dccd5cb3a96214999826ea1b6c9d26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playSound: {fileID: 2027191427}
+  tension: {fileID: 2027191426}
+  MusicEnviroment: {fileID: 963194229}
 --- !u!65 &2053083873
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19143,8 +19149,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2053083871}
   m_LocalRotation: {x: -0, y: -0.7160098, z: -0, w: 0.6980902}
-  m_LocalPosition: {x: 45.39, y: 7.34, z: 37.66}
-  m_LocalScale: {x: 13.815001, y: 10.659691, z: 1}
+  m_LocalPosition: {x: 47.64, y: 5.33, z: 37.54}
+  m_LocalScale: {x: 11.445972, y: 9.248062, z: 3.9512937}
   m_Children: []
   m_Father: {fileID: 1421102145}
   m_RootOrder: 3
@@ -19693,7 +19699,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2126057252}
-  m_LocalRotation: {x: -0.0012560542, y: 0.99572253, z: -0.09136599, w: -0.0136886975}
+  m_LocalRotation: {x: -0.0012550915, y: 0.99572265, z: -0.091366015, w: -0.013678204}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -19834,7 +19840,8 @@ AudioSource:
   m_GameObject: {fileID: 2133558844}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 8190605530303514848, guid: 93038707a0835dd44a88cf067b9224c5,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: b275a0a3fe9d7aa44bac9b415a20e513, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.21
@@ -77222,7 +77229,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &4576274970781223997
 BoxCollider:
   m_ObjectHideFlags: 0
