@@ -169,8 +169,14 @@ public class OptionsMenu : MonoBehaviour
         }
     }
 
+    public void cdtime()
+    {
+        UnityEngine.Debug.Log(menuIsOpen);
+        Invoke(nameof(OnButBackToGame), .5f);
+    }
     public void OnButBackToGame()
     {
+        UnityEngine.Debug.Log("entra");
         if (menuIsOpen)
         {
             UnityEngine.Cursor.visible = false;
@@ -184,7 +190,10 @@ public class OptionsMenu : MonoBehaviour
 
         }
     }
-
+    public void cdtime2()
+    {
+        Invoke(nameof(OnButGotoMainMenu), .5f);
+    }
     public void OnButGotoMainMenu()
     {
         if (menuIsOpen && !afterMenu)

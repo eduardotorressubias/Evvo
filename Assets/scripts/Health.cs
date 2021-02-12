@@ -5,11 +5,12 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     // Start is called before the first frame update
-
+    public AudioSource Audio;
     private PlayerController player;
     void Start()
     {
         player = FindObjectOfType<PlayerController>();
+        
     }
 
     private void OnTriggerEnter(Collider other)
@@ -19,7 +20,8 @@ public class Health : MonoBehaviour
             player.SumarVida();
             if (player.consumir == true)
             {
-                Destroy(gameObject);
+                Audio.Play();
+                Destroy(gameObject, 0.5f);
             }
         }
     }

@@ -81,7 +81,7 @@ public class EnemyController : MonoBehaviour
         }
         if (Soundon && timeCounter == 1 && semiboss == true)
         {
-            Instantiate(bossSound);
+            bossSound.SetActive(true);
         }
 
     }
