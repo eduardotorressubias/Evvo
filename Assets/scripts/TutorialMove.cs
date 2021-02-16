@@ -15,6 +15,7 @@ public class TutorialMove : MonoBehaviour
     static private bool tutorial3 = true;
     private PlayerAnimation animator;
     private OptionsMenu options;
+    static private bool endtuto = false;
 
     private OptionsMenu pause;
     void Start()
@@ -27,11 +28,10 @@ public class TutorialMove : MonoBehaviour
     }
     private void Update()
     {
-        if (options.goMenu)
+        if (endtuto)
         {
-            tutorial1 = true;
-            tutorial2 = true;
-            tutorial3 = true;
+            skip2();
+            animator.OpenDoor();
         }
     }
 
@@ -60,6 +60,7 @@ public class TutorialMove : MonoBehaviour
             tutorial3 = false;
             animator.OpenDoor();
             skip2();
+            endtuto = true;
         }
     }
     
