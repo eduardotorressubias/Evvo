@@ -5,7 +5,7 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     // Start is called before the first frame update
-    public AudioSource Audio;
+    public GameObject sound;
     private PlayerController player;
     void Start()
     {
@@ -20,8 +20,8 @@ public class Health : MonoBehaviour
             player.SumarVida();
             if (player.consumir == true)
             {
-                Audio.Play();
-                Destroy(gameObject, 0.5f);
+                sound.SetActive(true);
+                Destroy(gameObject);
             }
         }
     }

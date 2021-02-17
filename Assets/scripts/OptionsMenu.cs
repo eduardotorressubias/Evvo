@@ -176,7 +176,7 @@ public class OptionsMenu : MonoBehaviour
     }
     public void OnButBackToGame()
     {
-        UnityEngine.Debug.Log("entra");
+       
         if (menuIsOpen)
         {
             UnityEngine.Cursor.visible = false;
