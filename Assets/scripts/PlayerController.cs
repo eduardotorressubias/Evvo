@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -16,6 +18,10 @@ public class PlayerController : MonoBehaviour
 
     //public Rigidbody rb;
     //public float distToGround;
+    RaycastHit hit;
+    public LayerMask layerMask;
+    public float direction = 2f;
+    private Easing_move easing;
 
 
     public float playerSpeed = 10f;
@@ -33,6 +39,10 @@ public class PlayerController : MonoBehaviour
     private bool coldown = false;
     public float cdTime = 0.6f;
     public bool consumir = false;
+
+    //rampa
+    public bool isOnSlope = false;
+    private Vector3 hitNormal;
 
 
     //interfaz
@@ -88,6 +98,7 @@ public class PlayerController : MonoBehaviour
         player = GetComponent<CharacterController>();
         //rb = GetComponent<Rigidbody>();
         optionsMenu = FindObjectOfType<OptionsMenu>();
+        easing = FindObjectOfType<Easing_move>();
         UnityEngine.Cursor.visible = false;
         UnityEngine.Cursor.lockState = CursorLockMode.Locked;
         curHealth = maxHealth;
@@ -97,6 +108,11 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        //Raycast 
+
+        //Raycast();
+        
+
         // Movimiento
 
         movement();
@@ -165,6 +181,25 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
+    //Copiar el transform de la plataforma y moverse igual
+
+    //public void plataform()
+    //{
+    //    if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, Mathf.Infinity, layerMask))
+    //    {
+            
+    //        UnityEngine.Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * hit.distance, Color.yellow);
+    //        UnityEngine.Debug.Log("Hit");
+    //    }
+    //    else
+    //    {
+    //        UnityEngine.Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * 1000f, Color.red);
+    //        UnityEngine.Debug.Log("Not Hit");
+    //    }
+
+    //}
+  
 
     //Movimiento wasd
     public void movement()

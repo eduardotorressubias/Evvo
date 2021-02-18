@@ -8,7 +8,7 @@ public class Easing_move : MonoBehaviour
     [SerializeField] Transform destination;
     [SerializeField] float time;
     [SerializeField] AnimationCurve curve;
-    [SerializeField] Rigidbody rb;
+    public GameObject Player;
 
     float timespeed = 1f;
     float currentTime;
@@ -16,20 +16,33 @@ public class Easing_move : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        currentTime += Time.deltaTime * timespeed;
-        if (currentTime > time)
+        currentTime += Time.deltaTime;
+        while (currentTime > time)
         {
-            timespeed = -1f;
+            currentTime -= time;
         }
-        else if(currentTime < 0)
-        {
-            timespeed = 1;  
-        }
-
         float progress = currentTime / time;
         float curvedProgress = curve.Evaluate(progress);
-        Vector3 desiredPosition = Vector3.Lerp(origin.position, destination.position, curvedProgress);
+        transform.position = Vector3.Lerp(origin.position, destination.position, curvedProgress);
 
-        rb.velocity = (desiredPosition - rb.position) / Time.fixedDeltaTime;
+
     }
+    
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject == Player)
+        {
+            Player.transform.parent = transform;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject == Player)
+        {
+            Player.transform.parent = null;
+        }
+    }
+
 }
