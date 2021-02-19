@@ -43,6 +43,8 @@ public class PlayerController : MonoBehaviour
     //rampa
     public bool isOnSlope = false;
     private Vector3 hitNormal;
+    public float slideVelocity = 7f;
+    public float slopeForceDown = -10f;
 
 
     //interfaz
@@ -305,6 +307,26 @@ public class PlayerController : MonoBehaviour
             movePlayer.y = fallVelocity;
             
         }
+        SlideDown();
+    }
+
+    public void SlideDown()
+    {
+        isOnSlope = Vector3.Angle(Vector3.up, hitNormal) >= player.slopeLimit;
+
+        if(isOnSlope)
+        {
+            movePlayer.x += ((1f - hitNormal.y) * hitNormal.x) * slideVelocity;
+            movePlayer.z += ((1f - hitNormal.y) * hitNormal.z) * slideVelocity;
+
+            movePlayer.y += slopeForceDown;
+        }
+    }
+
+    // cuando el character controler golpea contra un colider
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        hitNormal = hit.normal;
     }
 
     //muerte del jugador
