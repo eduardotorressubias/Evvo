@@ -1965,7 +1965,7 @@ GameObject:
   - component: {fileID: 2136354497}
   - component: {fileID: 2136354496}
   m_Layer: 5
-  m_Name: BackToGame
+  m_Name: MainMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

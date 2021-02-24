@@ -55,6 +55,7 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log("enemy " + transform.position.y + ", player " + player.transform.position.y);
         //check vision y rango de ataque
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
@@ -71,8 +72,9 @@ public class EnemyController : MonoBehaviour
             Soundon = true;
             timeCounter++;
         }
-        if (playerInSightRange && playerInAttackRange)
+        if (playerInSightRange && playerInAttackRange )
         {
+
             AttackPlayer();
         }
 
@@ -134,6 +136,7 @@ public class EnemyController : MonoBehaviour
 
     private void AttackPlayer()
     {
+        
         //Make sure enemy doesn't move
         agent.SetDestination(transform.position);
         playerLook = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);

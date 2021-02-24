@@ -23,6 +23,8 @@ public class PlayerController : MonoBehaviour
     public float direction = 2f;
     private Easing_move easing;
 
+    public bool tuto = false;
+
 
     public float playerSpeed = 10f;
     public float godSpeed = 0.25f;
@@ -332,6 +334,7 @@ public class PlayerController : MonoBehaviour
     //muerte del jugador
     public void die()
     {
+        tuto = true;
         UnityEngine.Cursor.visible = true;
         UnityEngine.Cursor.lockState = CursorLockMode.None;
         menuManager.GameOver();
@@ -343,6 +346,7 @@ public class PlayerController : MonoBehaviour
         //y que pueda salir de la ventana del juego, seguidamente pasamos a la escena de win
         if (other.tag == "Win" && god == false)
         {
+
             UnityEngine.Cursor.visible = true;
             UnityEngine.Cursor.lockState = CursorLockMode.None;
             menuManager.WinScene();
@@ -365,7 +369,7 @@ public class PlayerController : MonoBehaviour
         // Si el jugador muere, el cursor se muetra visible , y lo puedes mover fuera de la ventana, seguidamente pasa a la escena de gameover
         if (other.tag == "Lose" && god == false)
         {
-
+            tuto = true;
             UnityEngine.Cursor.visible = true;
             UnityEngine.Cursor.lockState = CursorLockMode.None;
             menuManager.GameOver();
