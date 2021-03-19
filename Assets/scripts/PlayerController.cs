@@ -239,8 +239,10 @@ public class PlayerController : MonoBehaviour
     //Fucion para Jump
     public void playerSkills()
     {
+        UnityEngine.Debug.Log(player.isGrounded);
         if (player.isGrounded && Input.GetButtonDown("Jump"))
         {
+            
             Instantiate(sonidoSalto);
             fallVelocity = jumpForce;
             movePlayer.y = fallVelocity;
@@ -249,6 +251,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (!player.isGrounded)
         {
+            
             CreateDust();
         }
        
