@@ -55,7 +55,7 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("enemy " + transform.position.y + ", player " + player.transform.position.y);
+        //Debug.Log("enemy " + transform.position.y + ", player " + player.transform.position.y);
         //check vision y rango de ataque
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);

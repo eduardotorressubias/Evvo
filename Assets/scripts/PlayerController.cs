@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
     public int maxHealth = 3;
     public int dmg = 0;
     private bool coldown = false;
-    public float cdTime = 0.6f;
+    public float cdTime = 0.6f; //tiene que durar lo mismo que la animacion de ataque
     public bool consumir = false;
 
     //rampa
@@ -94,6 +94,11 @@ public class PlayerController : MonoBehaviour
     public GameObject tutorial3;
     public float oldtimescale = 0f;
 
+    //animation
+    private Animator anim;
+    private bool jump;
+    private bool walk;
+
 
     void Start()
     {
@@ -103,6 +108,9 @@ public class PlayerController : MonoBehaviour
         //rb = GetComponent<Rigidbody>();
         optionsMenu = FindObjectOfType<OptionsMenu>();
         easing = FindObjectOfType<Easing_move>();
+        anim = gameObject.GetComponent<Animator>();
+
+
         UnityEngine.Cursor.visible = false;
         UnityEngine.Cursor.lockState = CursorLockMode.Locked;
         curHealth = maxHealth;
@@ -145,6 +153,8 @@ public class PlayerController : MonoBehaviour
 
         playerColdown();
 
+        //check animations
+        attackAnimation();
 
 
     }
@@ -164,10 +174,8 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0) && optionsMenu.menuIsOpen == false && attacking == false)
         {
-
             Instantiate(sonidoAttack);
             attacking = true;
-
         }
 
         if (attacking == true)
@@ -215,6 +223,14 @@ public class PlayerController : MonoBehaviour
         playerInput = new Vector3(horizontalMove, 0, verticalMove);
         playerInput = Vector3.ClampMagnitude(playerInput, 1);
 
+        if (movePlayer.x!=0 && jump==false && attacking == false|| movePlayer.z != 0 && jump == false && attacking == false)
+        {
+            walk = true;
+        }else if (movePlayer.x == 0 && movePlayer.z == 0)
+        {
+            walk = false;
+        }
+
     }
 
     //Funcion para la direccion a la que mira la camara
@@ -239,19 +255,20 @@ public class PlayerController : MonoBehaviour
     //Fucion para Jump
     public void playerSkills()
     {
-        UnityEngine.Debug.Log(player.isGrounded);
+        //UnityEngine.Debug.Log(player.isGrounded);
         if (player.isGrounded && Input.GetButtonDown("Jump"))
         {
             
             Instantiate(sonidoSalto);
             fallVelocity = jumpForce;
             movePlayer.y = fallVelocity;
+            jump = true;
             
 
         }
         else if (!player.isGrounded)
         {
-            
+            jump = false;
             CreateDust();
         }
        
@@ -532,6 +549,38 @@ public class PlayerController : MonoBehaviour
 
 
     }
+    public void attackAnimation()
+    {
+        if (attacking == true)
+        {
+            walk = false;
+            anim.SetBool("Attack", true);
+
+        }
+        else
+        {
+            anim.SetBool("Attack", false);
+        }
+
+        if (jump == true)
+        {
+            walk = false;
+            anim.SetBool("Jump", true);
+        }
+        else
+        {
+            anim.SetBool("Jump", false);
+        }
+        if (walk == true)
+        {
+            anim.SetBool("Walk", true);
+        }
+        else
+        {
+            anim.SetBool("Walk", false);
+        }
+    }
+
 }
 
 

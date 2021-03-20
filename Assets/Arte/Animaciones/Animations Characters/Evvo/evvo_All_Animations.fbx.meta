@@ -77,7 +77,7 @@ ModelImporter:
       takeName: evvo_All_Animations
       internalID: 0
       firstFrame: 332
-      lastFrame: 342
+      lastFrame: 340
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -134,7 +134,7 @@ ModelImporter:
       name: evvo_jump
       takeName: evvo_All_Animations
       internalID: 0
-      firstFrame: 386
+      firstFrame: 390
       lastFrame: 408
       wrapMode: 0
       orientationOffsetY: 0
