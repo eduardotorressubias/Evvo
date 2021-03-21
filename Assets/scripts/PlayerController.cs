@@ -553,7 +553,7 @@ public class PlayerController : MonoBehaviour
     {
         if (attacking == true)
         {
-            walk = false;
+            
             anim.SetBool("Attack", true);
 
         }
@@ -564,7 +564,7 @@ public class PlayerController : MonoBehaviour
 
         if (jump == true)
         {
-            walk = false;
+        
             anim.SetBool("Jump", true);
         }
         else
