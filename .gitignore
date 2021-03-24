@@ -58,3 +58,5 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+Assets/Scenes/GameScene_animations.unity
+Assets/Arte/Modelos/Props/Cabaña_Entera.fbx.meta
