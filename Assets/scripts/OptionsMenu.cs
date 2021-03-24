@@ -8,10 +8,13 @@ using UnityEngine.UI;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.HighDefinition;
 using TMPro;
+using Cinemachine;
 
 public class OptionsMenu : MonoBehaviour
 {
     static string brightness_PPrefsTag = "Brightness";
+    //static string zoom_PPrefsTag = "Zoom";
+
     static string gamma_PPrefsTag = "Gamma";
     static string music_PPrefsTag = "Music";
     static string sfx_PPrefsTag = "SFX";
@@ -22,6 +25,10 @@ public class OptionsMenu : MonoBehaviour
     [SerializeField] Canvas canvas;
     [SerializeField] AudioMixer myMixer;
     [SerializeField] Volume volume;
+
+    //camera
+    //public CinemachineFreeLook freeLook;
+    //private CinemachineFreeLook.Orbit[] originalOrbits;
 
 
     [SerializeField] TMP_Dropdown resolution;
@@ -37,6 +44,7 @@ public class OptionsMenu : MonoBehaviour
     [SerializeField] Slider sliSFX;
     [SerializeField] Slider sliBrightness;
     [SerializeField] Slider sliGamme;
+    [SerializeField] Slider sliZoom;
 
     public GameObject canvasHUD;
     public GameObject canvasTutorial;
@@ -45,16 +53,23 @@ public class OptionsMenu : MonoBehaviour
     LiftGammaGain liftGammaGain;
 
     // Start is called before the first frame update
-
+    //private void Awake()
+    //{
+    //    freeLook = GetComponent<CinemachineFreeLook>();
+    //    originalOrbits = new CinemachineFreeLook.Orbit[freeLook.m_Orbits.Length];
+    //}
     void Start()
     {
 
         volume.profile.TryGet<ColorAdjustments>(out colorAdjustments);
         volume.profile.TryGet<LiftGammaGain>(out liftGammaGain);
+        
+
         goMenu = false;
         menuManager = FindObjectOfType<MenuManager>();
 
-        sliBrightness.value = PlayerPrefs.GetFloat(brightness_PPrefsTag, 0.75f);
+        //sliBrightness.value = PlayerPrefs.GetFloat(zoom_PPrefsTag, 4f);
+        sliZoom.value = PlayerPrefs.GetFloat(brightness_PPrefsTag, 0.75f);
         sliGamme.value = PlayerPrefs.GetFloat(gamma_PPrefsTag, 0.1f);
         sliMusic.value = PlayerPrefs.GetFloat(music_PPrefsTag, 0.5f);
         sliSFX.value = PlayerPrefs.GetFloat(sfx_PPrefsTag, 0.5f);
@@ -134,7 +149,17 @@ public class OptionsMenu : MonoBehaviour
         PlayerPrefs.SetFloat(brightness_PPrefsTag, newValue);
         colorAdjustments.postExposure.value = NormalizedToRange(newValue, -5f, 5f);
     }
+    //public void OnCameraZoom(float newValue)
+    //{
+    //    PlayerPrefs.SetFloat(zoom_PPrefsTag, newValue);
 
+    //    originalOrbits[0].m_Radius = NormalizedToRange(newValue, 3f, 6.5f);
+    //    originalOrbits[1].m_Radius = NormalizedToRange(newValue, 3f, 6.5f);
+    //    originalOrbits[2].m_Radius = NormalizedToRange(newValue, 3f, 6.5f);
+    //    freeLook.m_Orbits = originalOrbits;
+        
+    //}
+   
     public void OnSliGammaValue(float newValue)
     {
         PlayerPrefs.SetFloat(gamma_PPrefsTag, newValue);

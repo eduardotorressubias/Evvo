@@ -7,12 +7,13 @@ using System.Security.Cryptography;
 public class CameraShake : MonoBehaviour
 {
     public static CameraShake Instance { get; private set; }
-    private CinemachineFreeLook freeLook;
+    public CinemachineFreeLook freeLook;
     private float shakeTime;
     private void Awake()
     {
         Instance = this;
         freeLook = GetComponent<CinemachineFreeLook>();
+
 
     }
     public void ShakeCamera(float intensity, float time)
@@ -47,4 +48,6 @@ public class CameraShake : MonoBehaviour
             }
         }
     }
+
+
 }
