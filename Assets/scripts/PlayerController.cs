@@ -97,6 +97,7 @@ public class PlayerController : MonoBehaviour
     //animation
     private Animator anim;
     private bool jump;
+    private bool alreadyjump;
     private bool walk;
 
 
@@ -255,7 +256,7 @@ public class PlayerController : MonoBehaviour
     //Fucion para Jump
     public void playerSkills()
     {
-        //UnityEngine.Debug.Log(player.isGrounded);
+        UnityEngine.Debug.Log("gounded? "+player.isGrounded);
         if (player.isGrounded && Input.GetButtonDown("Jump"))
         {
             
@@ -263,12 +264,25 @@ public class PlayerController : MonoBehaviour
             fallVelocity = jumpForce;
             movePlayer.y = fallVelocity;
             jump = true;
-            
+            walk = false;
+            alreadyjump = true;
 
+        }else if (player.isGrounded)
+        {
+            alreadyjump = false;
+            jump = false;
         }
         else if (!player.isGrounded)
         {
-            jump = false;
+            
+            if(alreadyjump == true)
+            {
+                jump = true;
+            }
+            else
+            {
+                jump = false;
+            }
             CreateDust();
         }
        
@@ -567,7 +581,7 @@ public class PlayerController : MonoBehaviour
         
             anim.SetBool("Jump", true);
         }
-        else
+        else if(jump == false)
         {
             anim.SetBool("Jump", false);
         }
